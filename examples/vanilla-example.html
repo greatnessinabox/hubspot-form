@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HubSpot Form - Vanilla JS Example</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      max-width: 600px;
+      margin: 50px auto;
+      padding: 20px;
+    }
+    .form-group {
+      margin-bottom: 1rem;
+    }
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+    }
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    select {
+      width: 100%;
+      padding: 0.5rem;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      font-size: 1rem;
+    }
+    .hubspot-form-error {
+      color: red;
+      font-size: 0.875rem;
+      margin-top: 0.25rem;
+    }
+    .hubspot-form-error-general {
+      background: #fee;
+      padding: 1rem;
+      border-radius: 4px;
+      margin-bottom: 1rem;
+    }
+    button {
+      width: 100%;
+      padding: 0.75rem;
+      background: #0066cc;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+    button:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+    .checkbox-group {
+      display: flex;
+      align-items: start;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <h1>HubSpot Form Example</h1>
+
+  <form id="hubspot-form" data-hubspot-form>
+    <div class="form-group">
+      <label for="firstName">First Name *</label>
+      <input type="text" id="firstName" name="firstName" required>
+    </div>
+
+    <div class="form-group">
+      <label for="lastName">Last Name *</label>
+      <input type="text" id="lastName" name="lastName" required>
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email *</label>
+      <input type="email" id="email" name="email" required>
+    </div>
+
+    <div class="form-group">
+      <label for="phone">Phone Number</label>
+      <div style="display: flex; gap: 0.5rem;">
+        <select id="countryCode" name="countryCode" style="width: 120px;">
+          <option value="+1">+1 US</option>
+          <option value="+44">+44 UK</option>
+          <option value="+61">+61 AU</option>
+        </select>
+        <input type="tel" id="phoneNumber" name="phoneNumber" style="flex: 1;">
+      </div>
+    </div>
+
+    <div class="checkbox-group">
+      <input type="checkbox" id="agreeToUpdates" name="agreeToUpdates" value="true">
+      <label for="agreeToUpdates" style="margin: 0;">
+        I agree to receive updates. *
+      </label>
+    </div>
+
+    <div class="checkbox-group">
+      <input type="checkbox" id="agreeAnotherlandUpdates" name="agreeAnotherlandUpdates" value="true">
+      <label for="agreeAnotherlandUpdates" style="margin: 0;">
+        I agree to receive updates about Anotherland.
+      </label>
+    </div>
+
+    <button type="submit">Submit</button>
+  </form>
+
+  <script type="module">
+    import { initHubSpotForm } from '@greatnessinabox/hubspot-form/vanilla'
+
+    // Initialize the form
+    initHubSpotForm({
+      portalId: 'YOUR_PORTAL_ID', // Replace with your HubSpot Portal ID
+      formGuid: 'YOUR_FORM_GUID', // Replace with your HubSpot Form GUID
+      formId: 'hubspot-form',
+      submissionMethod: 'direct', // or 'proxy' if using a backend endpoint
+      // proxyEndpoint: '/api/submit-form', // Required if submissionMethod is 'proxy'
+      validation: {
+        requiredFields: ['firstName', 'lastName', 'email']
+      },
+      legalConsent: {
+        subscriptions: [
+          {
+            id: 'YOUR_SUBSCRIPTION_ID', // Replace with your subscription ID
+            fieldName: 'agreeToUpdates',
+            text: 'I agree to receive updates.',
+            required: true
+          },
+          {
+            id: 'YOUR_ANOTHERLAND_SUBSCRIPTION_ID', // Replace with your subscription ID
+            fieldName: 'agreeAnotherlandUpdates',
+            text: 'I agree to receive updates about Anotherland.'
+          }
+        ]
+      },
+      context: {
+        pageName: 'Contact Form',
+        pageUri: () => window.location.href,
+        includeHutk: true
+      },
+      onSuccess: (data) => {
+        alert('Form submitted successfully!')
+        console.log('Success:', data)
+        // Redirect or show success message
+        // window.location.href = '/thank-you'
+      },
+      onError: (error) => {
+        console.error('Form submission error:', error)
+        // Error messages are automatically displayed in the form
+      }
+    })
+  </script>
+</body>
+</html>
+
+
+

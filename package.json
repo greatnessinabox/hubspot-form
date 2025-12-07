@@ -1,0 +1,67 @@
+{
+  "name": "@greatnessinabox/hubspot-form",
+  "version": "1.0.0",
+  "description": "A modular, framework-agnostic HubSpot form submission library for React, Vue, vanilla JS, and any web application",
+  "main": "./dist/index.js",
+  "module": "./dist/index.esm.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.esm.js",
+      "require": "./dist/index.js"
+    },
+    "./react": {
+      "types": "./dist/react/index.d.ts",
+      "import": "./dist/react/index.esm.js",
+      "require": "./dist/react/index.js"
+    },
+    "./vanilla": {
+      "types": "./dist/vanilla/index.d.ts",
+      "import": "./dist/vanilla/index.esm.js",
+      "require": "./dist/vanilla/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "type-check": "tsc --noEmit"
+  },
+  "keywords": [
+    "hubspot",
+    "form",
+    "crm",
+    "marketing",
+    "lead-generation",
+    "squarespace",
+    "framework-agnostic"
+  ],
+  "author": "greatnessinabox",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/greatnessinabox/hubspot-form.git"
+  },
+  "bugs": {
+    "url": "https://github.com/greatnessinabox/hubspot-form/issues"
+  },
+  "homepage": "https://github.com/greatnessinabox/hubspot-form#readme",
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@types/react": "^18.0.0 || ^19.0.0",
+    "tsup": "^8.0.0",
+    "typescript": "^5.0.0"
+  },
+  "peerDependencies": {
+    "react": "^18.0.0 || ^19.0.0"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": true
+    }
+  },
+  "packageManager": "pnpm@10.20.0+sha512.cf9998222162dd85864d0a8102e7892e7ba4ceadebbf5a31f9c2fce48dfce317a9c53b9f6464d1ef9042cba2e02ae02a9f7c143a2b438cd93c91840f0192b9dd"
+}

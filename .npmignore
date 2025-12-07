@@ -1,0 +1,27 @@
+# Source files
+src/
+examples/
+*.ts
+*.tsx
+
+# Config files
+tsconfig.json
+tsup.config.ts
+*.config.*
+
+# Documentation (keep README.md, LICENSE, CONTRIBUTING.md)
+USAGE.md
+MIGRATION.md
+SQUARESPACE_GUIDE.md
+README_SQUARESPACE.md
+PUBLISHING.md
+
+# Development files
+.gitignore
+build.sh
+*.log
+.DS_Store
+
+# Only include built files
+!dist/
+

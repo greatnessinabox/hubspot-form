@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HubSpot Form - Squarespace Example</title>
+    <style>
+      /* Copy this entire style block into your Squarespace Code Block */
+      #hubspot-contact-form {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+
+      .form-field {
+        margin-bottom: 20px;
+      }
+
+      .form-field label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 500;
+        color: #333;
+      }
+
+      .form-field input[type="text"],
+      .form-field input[type="email"],
+      .form-field input[type="tel"],
+      .form-field select {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-size: 16px;
+        box-sizing: border-box;
+      }
+
+      .form-field input:focus,
+      .form-field select:focus {
+        outline: none;
+        border-color: #000;
+      }
+
+      .checkbox-group {
+        display: flex;
+        align-items: start;
+        gap: 8px;
+        margin-bottom: 20px;
+      }
+
+      .checkbox-group input[type="checkbox"] {
+        margin-top: 4px;
+      }
+
+      .hubspot-form-error {
+        color: #d32f2f;
+        font-size: 14px;
+        margin-top: 4px;
+      }
+
+      .hubspot-form-error-general {
+        background: #ffebee;
+        padding: 12px;
+        border-radius: 4px;
+        margin-bottom: 16px;
+      }
+
+      button[type="submit"] {
+        width: 100%;
+        padding: 12px 24px;
+        background: #000;
+        color: #fff;
+        border: none;
+        border-radius: 4px;
+        font-size: 16px;
+        font-weight: 500;
+        cursor: pointer;
+        transition: background 0.2s;
+      }
+
+      button[type="submit"]:hover:not(:disabled) {
+        background: #333;
+      }
+
+      button[type="submit"]:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+      }
+
+      #form-message {
+        margin-top: 16px;
+        padding: 12px;
+        border-radius: 4px;
+        display: none;
+      }
+
+      #form-message.success {
+        background: #e8f5e9;
+        color: #2e7d32;
+        display: block;
+      }
+
+      #form-message.error {
+        background: #ffebee;
+        color: #d32f2f;
+        display: block;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Copy everything from here down into your Squarespace Code Block -->
+
+    <form id="hubspot-contact-form" data-hubspot-form>
+      <div class="form-field">
+        <label for="firstName">First Name *</label>
+        <input type="text" id="firstName" name="firstName" required>
+      </div>
+
+      <div class="form-field">
+        <label for="lastName">Last Name *</label>
+        <input type="text" id="lastName" name="lastName" required>
+      </div>
+
+      <div class="form-field">
+        <label for="email">Email *</label>
+        <input type="email" id="email" name="email" required>
+      </div>
+
+      <div class="form-field">
+        <label for="phoneNumber">Phone Number (Optional)</label>
+        <div style="display: flex; gap: 10px;">
+          <select id="countryCode" name="countryCode" style="width: 120px;">
+            <option value="+1">+1 US</option>
+            <option value="+44">+44 UK</option>
+            <option value="+61">+61 AU</option>
+            <option value="+55">+55 BR</option>
+            <option value="+86">+86 CN</option>
+            <option value="+81">+81 JP</option>
+            <option value="+49">+49 DE</option>
+            <option value="+33">+33 FR</option>
+          </select>
+          <input type="tel" id="phoneNumber" name="phoneNumber"
+            style="flex: 1;">
+        </div>
+      </div>
+
+      <div class="checkbox-group">
+        <input type="checkbox" id="agreeToUpdates" name="agreeToUpdates"
+          value="true" required>
+        <label for="agreeToUpdates">
+          I agree to receive updates about our events and news. *
+        </label>
+      </div>
+
+      <button type="submit">Submit</button>
+
+      <div id="form-message"></div>
+    </form>
+
+    <!-- IMPORTANT: Replace YOUR_PORTAL_ID, YOUR_FORM_GUID, and YOUR_SUBSCRIPTION_ID with your actual values -->
+    <script type="module">
+      import { initHubSpotForm } from 'https://unpkg.com/@greatnessinabox/hubspot-form@latest/dist/vanilla/index.js';
+
+      initHubSpotForm({
+        portalId: 'YOUR_PORTAL_ID', // Replace with your HubSpot Portal ID
+        formGuid: 'YOUR_FORM_GUID', // Replace with your HubSpot Form GUID
+        formId: 'hubspot-contact-form',
+        submissionMethod: 'direct',
+        validation: {
+          requiredFields: ['firstName', 'lastName', 'email']
+        },
+        legalConsent: {
+          subscriptions: [
+            {
+              id: 'YOUR_SUBSCRIPTION_ID', // Replace with your subscription ID
+              fieldName: 'agreeToUpdates',
+              text: 'I agree to receive updates about our events and news.',
+              required: true
+            }
+          ]
+        },
+        context: {
+          pageName: 'Contact Form',
+          pageUri: () => window.location.href,
+          includeHutk: true
+        },
+        onSuccess: (data) => {
+          const messageEl = document.getElementById('form-message');
+          messageEl.className = 'success';
+          messageEl.textContent = 'Thank you! Your form has been submitted successfully.';
+          document.getElementById('hubspot-contact-form').reset();
+
+          // Optional: Redirect after 3 seconds
+          // setTimeout(() => {
+          //   window.location.href = '/thank-you';
+          // }, 3000);
+        },
+        onError: (error) => {
+          const messageEl = document.getElementById('form-message');
+          messageEl.className = 'error';
+          messageEl.textContent = 'There was an error submitting your form. Please try again.';
+          console.error('Form error:', error);
+        }
+      });
+    </script>
+
+    <!-- End of Code Block content -->
+  </body>
+
+</html>

@@ -11,7 +11,6 @@ A modular, framework-agnostic HubSpot form submission library that can be easily
 
 - **[Squarespace Setup Guide](./SQUARESPACE_GUIDE.md)** - Step-by-step guide for non-developers
 - **[Usage Examples](./USAGE.md)** - Detailed examples for different frameworks
-- **[Migration Guide](./MIGRATION.md)** - Migrate existing forms
 
 ## Features
 
