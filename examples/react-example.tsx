@@ -21,8 +21,8 @@ export function ExampleForm1() {
         subscriptions: [
           {
             id: process.env.NEXT_PUBLIC_HUBSPOT_SUBSCRIPTION_ID || '',
-            fieldName: 'agreeToUpdates',
-            text: 'I agree to receive updates.',
+            fieldName: 'agreeArtistUpdates',
+            text: 'I agree to receive updates about ARTIST_NAME.',
             required: true,
           },
           {
@@ -191,10 +191,10 @@ export function ExampleForm2() {
       <label>
         <input
           type="checkbox"
-          checked={formData.agreeToUpdates || false}
-          onChange={e => setFieldValue('agreeToUpdates', e.target.checked)}
+          checked={formData.agreeArtistUpdates || false}
+          onChange={e => setFieldValue('agreeArtistUpdates', e.target.checked)}
         />
-        I agree to receive updates
+        I agree to receive updates about ARTIST_NAME.*
       </label>
 
       <button type="submit" disabled={isSubmitting}>

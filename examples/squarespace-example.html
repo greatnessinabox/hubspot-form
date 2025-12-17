@@ -7,10 +7,52 @@
     <title>HubSpot Form - Squarespace Example</title>
     <style>
       /* Copy this entire style block into your Squarespace Code Block */
+      :root {
+        --hsf-font: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+          "Liberation Mono", "Courier New", monospace;
+
+        /* Default theme: light (dark text) */
+        --hsf-bg: #ffffff;
+        --hsf-text: #111827;
+        --hsf-muted: #6b7280;
+        --hsf-border: #e5e7eb;
+        --hsf-input-bg: #ffffff;
+        --hsf-focus: #111827;
+
+        --hsf-button-bg: #111827;
+        --hsf-button-text: #ffffff;
+        --hsf-button-bg-hover: #000000;
+
+        --hsf-success-bg: #e8f5e9;
+        --hsf-success-text: #2e7d32;
+        --hsf-error-bg: #ffebee;
+        --hsf-error-text: #d32f2f;
+      }
+
+      /* Optional: set data-hsf-theme="dark" on the form for a UNITED-like vibe */
+      form[data-hsf-theme="dark"] {
+        --hsf-bg: #000000;
+        --hsf-text: #ffffff;
+        --hsf-muted: #9ca3af;
+        --hsf-border: #374151;
+        --hsf-input-bg: #0a0a0a;
+        --hsf-focus: #ef4444;
+
+        --hsf-button-bg: #ef4444;
+        --hsf-button-text: #ffffff;
+        --hsf-button-bg-hover: #dc2626;
+      }
+
       #hubspot-contact-form {
         max-width: 600px;
         margin: 0 auto;
-        padding: 20px;
+        padding: 24px;
+        background: var(--hsf-bg);
+        color: var(--hsf-text);
+        font-family: var(--hsf-font);
+        border: 1px solid var(--hsf-border);
+        border-radius: 10px;
+        box-sizing: border-box;
       }
 
       .form-field {
@@ -20,8 +62,11 @@
       .form-field label {
         display: block;
         margin-bottom: 8px;
-        font-weight: 500;
-        color: #333;
+        font-weight: 600;
+        font-size: 12px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--hsf-text);
       }
 
       .form-field input[type="text"],
@@ -29,38 +74,71 @@
       .form-field input[type="tel"],
       .form-field select {
         width: 100%;
-        padding: 10px;
-        border: 1px solid #ddd;
-        border-radius: 4px;
-        font-size: 16px;
+        height: 44px;
+        padding: 10px 12px;
+        border: 1px solid var(--hsf-border);
+        border-radius: 8px;
+        font-size: 14px;
+        font-family: var(--hsf-font);
+        background: var(--hsf-input-bg);
+        color: var(--hsf-text);
         box-sizing: border-box;
+      }
+
+      .form-field input::placeholder {
+        color: var(--hsf-muted);
+        text-transform: uppercase;
       }
 
       .form-field input:focus,
       .form-field select:focus {
         outline: none;
-        border-color: #000;
+        border-color: var(--hsf-focus);
+        box-shadow: 0 0 0 3px color-mix(in srgb, var(--hsf-focus) 20%, transparent);
       }
 
       .checkbox-group {
         display: flex;
         align-items: start;
         gap: 8px;
-        margin-bottom: 20px;
+        margin-bottom: 12px;
       }
 
       .checkbox-group input[type="checkbox"] {
-        margin-top: 4px;
+        margin-top: 2px;
+        width: 16px;
+        height: 16px;
+        accent-color: var(--hsf-focus);
+      }
+
+      .consent-text {
+        padding-top: 16px;
+        font-size: 12px;
+        line-height: 1.5;
+        color: var(--hsf-muted);
+      }
+
+      .consent-text p {
+        margin: 0 0 12px;
+      }
+
+      .consent-text label {
+        font-family: var(--hsf-font);
+        color: var(--hsf-text);
+        font-size: 12px;
+        text-transform: none;
+        letter-spacing: normal;
+        font-weight: 500;
       }
 
       .hubspot-form-error {
-        color: #d32f2f;
+        color: var(--hsf-error-text);
         font-size: 14px;
         margin-top: 4px;
       }
 
       .hubspot-form-error-general {
-        background: #ffebee;
+        background: var(--hsf-error-bg);
         padding: 12px;
         border-radius: 4px;
         margin-bottom: 16px;
@@ -69,18 +147,21 @@
       button[type="submit"] {
         width: 100%;
         padding: 12px 24px;
-        background: #000;
-        color: #fff;
+        background: var(--hsf-button-bg);
+        color: var(--hsf-button-text);
         border: none;
-        border-radius: 4px;
-        font-size: 16px;
-        font-weight: 500;
+        border-radius: 10px;
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
         cursor: pointer;
         transition: background 0.2s;
+        font-family: var(--hsf-font);
       }
 
       button[type="submit"]:hover:not(:disabled) {
-        background: #333;
+        background: var(--hsf-button-bg-hover);
       }
 
       button[type="submit"]:disabled {
@@ -93,17 +174,18 @@
         padding: 12px;
         border-radius: 4px;
         display: none;
+        font-family: var(--hsf-font);
       }
 
       #form-message.success {
-        background: #e8f5e9;
-        color: #2e7d32;
+        background: var(--hsf-success-bg);
+        color: var(--hsf-success-text);
         display: block;
       }
 
       #form-message.error {
-        background: #ffebee;
-        color: #d32f2f;
+        background: var(--hsf-error-bg);
+        color: var(--hsf-error-text);
         display: block;
       }
     </style>
@@ -112,7 +194,7 @@
   <body>
     <!-- Copy everything from here down into your Squarespace Code Block -->
 
-    <form id="hubspot-contact-form" data-hubspot-form>
+    <form id="hubspot-contact-form" data-hubspot-form data-hsf-theme="light">
       <div class="form-field">
         <label for="firstName">First Name *</label>
         <input type="text" id="firstName" name="firstName" required>
@@ -146,12 +228,38 @@
         </div>
       </div>
 
-      <div class="checkbox-group">
-        <input type="checkbox" id="agreeToUpdates" name="agreeToUpdates"
-          value="true" required>
-        <label for="agreeToUpdates">
-          I agree to receive updates about our events and news. *
-        </label>
+      <!-- Consent Section (mirrors UNITED) -->
+      <div class="consent-text">
+        <p>
+          Anotherland will use your information to send you updates for the
+          subscriptions you
+          select below. You can unsubscribe at any time.
+        </p>
+        <p>
+          If you provide your cell number, you agree to receive text messages
+          about these updates.
+          Msg & data rates may apply. Message frequency may vary. Reply STOP to
+          opt out, HELP for
+          help. Consent isn't a condition of purchase.
+        </p>
+
+        <div class="checkbox-group">
+          <input type="checkbox" id="agreeArtistUpdates"
+            name="agreeArtistUpdates" value="true" required>
+          <label for="agreeArtistUpdates">
+            I agree to receive updates about ARTIST_NAME.*
+          </label>
+        </div>
+
+        <div class="checkbox-group">
+          <input type="checkbox" id="agreeAnotherlandUpdates"
+            name="agreeAnotherlandUpdates" value="true">
+          <label for="agreeAnotherlandUpdates">
+            I agree to receive updates about Anotherland.
+          </label>
+        </div>
+
+        <p>By submitting, you consent to our Privacy Policy.</p>
       </div>
 
       <button type="submit">Submit</button>
@@ -159,12 +267,12 @@
       <div id="form-message"></div>
     </form>
 
-    <!-- IMPORTANT: Replace YOUR_PORTAL_ID, YOUR_FORM_GUID, and YOUR_SUBSCRIPTION_ID with your actual values -->
+    <!-- IMPORTANT: Replace placeholders with your actual values -->
     <script type="module">
       import { initHubSpotForm } from 'https://unpkg.com/@greatnessinabox/hubspot-form@latest/dist/vanilla/index.esm.js';
 
       initHubSpotForm({
-        portalId: 'YOUR_PORTAL_ID', // Replace with your HubSpot Portal ID
+        portalId: '242432623',
         formGuid: 'YOUR_FORM_GUID', // Replace with your HubSpot Form GUID
         formId: 'hubspot-contact-form',
         submissionMethod: 'direct',
@@ -174,10 +282,15 @@
         legalConsent: {
           subscriptions: [
             {
-              id: 'YOUR_SUBSCRIPTION_ID', // Replace with your subscription ID
-              fieldName: 'agreeToUpdates',
-              text: 'I agree to receive updates about our events and news.',
+              id: 'YOUR_ARTIST_SUBSCRIPTION_ID', // required checkbox subscription ID
+              fieldName: 'agreeArtistUpdates',
+              text: 'I agree to receive updates about ARTIST_NAME.',
               required: true
+            },
+            {
+              id: '933574493',
+              fieldName: 'agreeAnotherlandUpdates',
+              text: 'I agree to receive updates about Anotherland.'
             }
           ]
         },

@@ -6,9 +6,8 @@ This guide is designed for web administrators who are comfortable with HTML but 
 
 Before you begin, gather these from your HubSpot account:
 
-- **Portal ID** - Found in Settings → Account Setup → Account Defaults
 - **Form GUID** - Found in Marketing → Forms → [Your Form] → Settings
-- **Subscription IDs** (if using email subscriptions) - Found in your form's subscription settings
+- **Artist subscription ID** - Found in the form’s Privacy and consent → Communication subscriptions (required checkbox)
 
 ## Quick Setup (5 Minutes)
 
@@ -34,131 +33,19 @@ Add a **Code Block** to your Squarespace page where you want the form to appear:
 1. Click **Edit** on your page
 2. Click **+ Add Block**
 3. Choose **Code**
-4. Paste this HTML (replace the values in ALL CAPS):
-
-```html
-<form id="hubspot-contact-form" data-hubspot-form>
-  <div class="form-field">
-    <label for="firstName">First Name *</label>
-    <input type="text" id="firstName" name="firstName" required>
-  </div>
-
-  <div class="form-field">
-    <label for="lastName">Last Name *</label>
-    <input type="text" id="lastName" name="lastName" required>
-  </div>
-
-  <div class="form-field">
-    <label for="email">Email *</label>
-    <input type="email" id="email" name="email" required>
-  </div>
-
-  <div class="form-field">
-    <label for="phoneNumber">Phone Number (Optional)</label>
-    <div style="display: flex; gap: 10px;">
-      <select id="countryCode" name="countryCode" style="width: 120px;">
-        <option value="+1">+1 US</option>
-        <option value="+44">+44 UK</option>
-        <option value="+61">+61 AU</option>
-        <!-- Add more country codes as needed -->
-      </select>
-      <input type="tel" id="phoneNumber" name="phoneNumber" style="flex: 1;">
-    </div>
-  </div>
-
-  <div class="form-field">
-    <label style="display: flex; align-items: start; gap: 8px;">
-      <input type="checkbox" id="agreeToUpdates" name="agreeToUpdates" value="true" required>
-      <span>I agree to receive updates *</span>
-    </label>
-  </div>
-
-  <button type="submit" style="padding: 12px 24px; background: #000; color: #fff; border: none; cursor: pointer;">
-    Submit
-  </button>
-
-  <div id="form-message" style="margin-top: 16px; display: none;"></div>
-</form>
-
-<style>
-  #hubspot-contact-form {
-    max-width: 600px;
-    margin: 0 auto;
-  }
-  .form-field {
-    margin-bottom: 20px;
-  }
-  .form-field label {
-    display: block;
-    margin-bottom: 8px;
-    font-weight: 500;
-  }
-  .form-field input[type="text"],
-  .form-field input[type="email"],
-  .form-field input[type="tel"],
-  .form-field select {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    font-size: 16px;
-  }
-  .hubspot-form-error {
-    color: #d32f2f;
-    font-size: 14px;
-    margin-top: 4px;
-  }
-  button:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-  }
-</style>
-
-<script type="module">
-  import { initHubSpotForm } from 'https://unpkg.com/@greatnessinabox/hubspot-form@latest/dist/vanilla/index.esm.js';
-
-  initHubSpotForm({
-    portalId: 'YOUR_PORTAL_ID_HERE',
-    formGuid: 'YOUR_FORM_GUID_HERE',
-    formId: 'hubspot-contact-form',
-    submissionMethod: 'direct',
-    validation: {
-      requiredFields: ['firstName', 'lastName', 'email']
-    },
-    legalConsent: {
-      subscriptions: [
-        {
-          id: 'YOUR_SUBSCRIPTION_ID_HERE',
-          fieldName: 'agreeToUpdates',
-          text: 'I agree to receive updates',
-          required: true
-        }
-      ]
-    },
-    onSuccess: (data) => {
-      const messageEl = document.getElementById('form-message');
-      messageEl.style.display = 'block';
-      messageEl.style.color = '#4caf50';
-      messageEl.textContent = 'Thank you! Your form has been submitted successfully.';
-      document.getElementById('hubspot-contact-form').reset();
-    },
-    onError: (error) => {
-      const messageEl = document.getElementById('form-message');
-      messageEl.style.display = 'block';
-      messageEl.style.color = '#d32f2f';
-      messageEl.textContent = 'There was an error submitting your form. Please try again.';
-    }
-  });
-</script>
-```
+4. Paste the full template from `examples/squarespace-example.html` (it’s kept in sync with UNITED and includes a themeable default-light style).
 
 ### Step 3: Replace the Placeholder Values
 
 Find and replace these values in the code above:
 
-- `YOUR_PORTAL_ID_HERE` → Your HubSpot Portal ID
-- `YOUR_FORM_GUID_HERE` → Your HubSpot Form GUID
-- `YOUR_SUBSCRIPTION_ID_HERE` → Your subscription ID (if using)
+- `YOUR_FORM_GUID` → Your HubSpot Form GUID
+- `YOUR_ARTIST_SUBSCRIPTION_ID` → The artist subscription ID (required checkbox)
+- `ARTIST_NAME` → The artist name shown in the required checkbox label/text
+
+Optional:
+
+- Set `data-hsf-theme="dark"` on the `<form ...>` for a UNITED-like dark theme (default is `light`).
 
 ### Step 4: Save and Test
 
@@ -200,14 +87,14 @@ In the `legalConsent.subscriptions` array, add more subscription options:
 subscriptions: [
   {
     id: 'SUBSCRIPTION_ID_1',
-    fieldName: 'agreeToUpdates',
-    text: 'I agree to receive updates',
+    fieldName: 'agreeArtistUpdates',
+    text: 'I agree to receive updates about ARTIST_NAME.',
     required: true
   },
   {
     id: 'SUBSCRIPTION_ID_2',
-    fieldName: 'agreeToNewsletter',
-    text: 'Subscribe to newsletter',
+    fieldName: 'agreeAnotherlandUpdates',
+    text: 'I agree to receive updates about Anotherland.',
     required: false
   }
 ]

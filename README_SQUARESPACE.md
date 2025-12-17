@@ -6,9 +6,8 @@
 
 Before starting, get these from HubSpot:
 
-- **Portal ID** - Settings → Account Setup → Account Defaults
 - **Form GUID** - Marketing → Forms → [Your Form] → Settings
-- **Subscription ID** (if using) - Form Settings → Subscriptions
+- **Artist subscription ID** - Form Settings → Privacy and consent → Communication subscriptions (required checkbox)
 
 ## 3-Step Setup
 
@@ -22,9 +21,9 @@ Before starting, get these from HubSpot:
 
 Find and replace these in the code:
 
-- `YOUR_PORTAL_ID` → Your HubSpot Portal ID
 - `YOUR_FORM_GUID` → Your HubSpot Form GUID
-- `YOUR_SUBSCRIPTION_ID` → Your subscription ID (if using)
+- `YOUR_ARTIST_SUBSCRIPTION_ID` → The artist subscription ID (required checkbox)
+- `ARTIST_NAME` → The artist name shown in the required checkbox label/text
 
 ### Step 3: Save and Test
 

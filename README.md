@@ -66,9 +66,15 @@ function MyForm() {
         subscriptions: [
           {
             id: '123',
-            fieldName: 'agreeToUpdates',
-            text: 'I agree to receive updates',
+            fieldName: 'agreeArtistUpdates',
+            text: 'I agree to receive updates about ARTIST_NAME.',
             required: true
+          },
+          {
+            id: '456',
+            fieldName: 'agreeAnotherlandUpdates',
+            text: 'I agree to receive updates about Anotherland.',
+            required: false
           }
         ]
       }}
@@ -100,10 +106,10 @@ function MyForm() {
           <label>
             <input
               type="checkbox"
-              checked={formData.agreeToUpdates || false}
-              onChange={(e) => setFieldValue('agreeToUpdates', e.target.checked)}
+              checked={formData.agreeArtistUpdates || false}
+              onChange={(e) => setFieldValue('agreeArtistUpdates', e.target.checked)}
             />
-            I agree to receive updates
+            I agree to receive updates about ARTIST_NAME.*
           </label>
 
           <button type="submit" disabled={isSubmitting}>
@@ -127,8 +133,13 @@ function MyForm() {
   <input type="email" name="email" placeholder="Email" required>
 
   <label>
-    <input type="checkbox" name="agreeToUpdates" value="true">
-    I agree to receive updates
+    <input type="checkbox" name="agreeArtistUpdates" value="true">
+    I agree to receive updates about ARTIST_NAME.*
+  </label>
+
+  <label>
+    <input type="checkbox" name="agreeAnotherlandUpdates" value="true">
+    I agree to receive updates about Anotherland.
   </label>
 
   <button type="submit">Submit</button>
@@ -149,8 +160,8 @@ function MyForm() {
       subscriptions: [
         {
           id: '123',
-          fieldName: 'agreeToUpdates',
-          text: 'I agree to receive updates',
+          fieldName: 'agreeArtistUpdates',
+          text: 'I agree to receive updates about ARTIST_NAME.',
           required: true
         }
       ]
@@ -182,9 +193,15 @@ const config = {
     subscriptions: [
       {
         id: '123',
-        fieldName: 'agreeToUpdates',
-        text: 'I agree to receive updates',
+        fieldName: 'agreeArtistUpdates',
+        text: 'I agree to receive updates about ARTIST_NAME.',
         required: true
+      },
+      {
+        id: '456',
+        fieldName: 'agreeAnotherlandUpdates',
+        text: 'I agree to receive updates about Anotherland.',
+        required: false
       }
     ]
   },
@@ -197,7 +214,7 @@ const formData = {
   firstName: 'John',
   lastName: 'Doe',
   email: 'john@example.com',
-  agreeToUpdates: true
+  agreeArtistUpdates: true
 }
 
 const validationError = validateFormData(formData, config)
