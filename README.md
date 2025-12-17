@@ -36,6 +36,11 @@ Just use the CDN - see [Squarespace Guide](./SQUARESPACE_GUIDE.md) for step-by-s
 </script>
 ```
 
+Layout options:
+
+- Inline (default): leave the form where it is in the page
+- Corner popup: set `data-hsf-layout="corner"` on the `<form ...>` to render it as a bottom-right popup (UNITED-style)
+
 ### For Node.js Projects
 
 ```bash

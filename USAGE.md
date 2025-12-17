@@ -102,6 +102,16 @@ function ContactForm() {
 </script>
 ```
 
+### Corner Popup Layout (UNITED-style)
+
+To render a form as a bottom-right popup with a launcher button, set:
+
+```html
+<form id="contact-form" data-hubspot-form data-hsf-layout="corner">
+  <!-- form fields -->
+</form>
+```
+
 ### Auto-initialize Multiple Forms
 
 ```html

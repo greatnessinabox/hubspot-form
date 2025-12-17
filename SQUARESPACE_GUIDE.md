@@ -46,6 +46,7 @@ Find and replace these values in the code above:
 Optional:
 
 - Set `data-hsf-theme="dark"` on the `<form ...>` for a UNITED-like dark theme (default is `light`).
+- Set `data-hsf-layout="corner"` on the `<form ...>` to render the form as a bottom-right popup (default is `inline`).
 
 ### Step 4: Save and Test
 
