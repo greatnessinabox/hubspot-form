@@ -30,6 +30,8 @@ type CornerMount = {
   destroy: () => void
 }
 
+const CORNER_STYLE_ID = 'hsf-corner-styles'
+
 /**
  * Get form data from a form element
  */
@@ -98,10 +100,105 @@ function readLayoutFromDataset(form: HTMLFormElement): 'inline' | 'corner' | nul
   return null
 }
 
+function ensureCornerStyles() {
+  if (typeof document === 'undefined') return
+  if (document.getElementById(CORNER_STYLE_ID)) return
+
+  const style = document.createElement('style')
+  style.id = CORNER_STYLE_ID
+  style.textContent = `
+.hsf-corner-root{
+  position:fixed;
+  right:24px;
+  bottom:24px;
+  z-index:999999;
+  font-family:var(--hsf-font, ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace);
+}
+.hsf-corner-launcher{
+  appearance:none;
+  border:0;
+  border-radius:12px;
+  padding:12px 14px;
+  background:var(--hsf-button-bg, #111827);
+  color:var(--hsf-button-text, #ffffff);
+  font-family:inherit;
+  font-weight:700;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+  cursor:pointer;
+  box-shadow:0 12px 28px rgba(0,0,0,.18);
+}
+.hsf-corner-panel{
+  width:min(420px, calc(100vw - 48px));
+  margin-bottom:12px;
+  background:var(--hsf-bg, #ffffff);
+  color:var(--hsf-text, #111827);
+  border:1px solid var(--hsf-border, #e5e7eb);
+  border-radius:14px;
+  box-shadow:0 18px 44px rgba(0,0,0,.22);
+  overflow:hidden;
+  transform:translateY(8px);
+  opacity:0;
+  pointer-events:none;
+  transition:opacity 160ms ease, transform 160ms ease;
+}
+.hsf-corner-panel.is-open{
+  transform:translateY(0);
+  opacity:1;
+  pointer-events:auto;
+}
+.hsf-corner-header{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:12px;
+  padding:14px 14px 10px;
+  border-bottom:1px solid var(--hsf-border, #e5e7eb);
+}
+.hsf-corner-title{
+  font-weight:800;
+  font-size:14px;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+}
+.hsf-corner-description{
+  margin-top:4px;
+  font-size:12px;
+  color:var(--hsf-muted, #6b7280);
+  line-height:1.4;
+}
+.hsf-corner-close{
+  appearance:none;
+  border:0;
+  background:transparent;
+  color:var(--hsf-muted, #6b7280);
+  font-size:22px;
+  line-height:1;
+  cursor:pointer;
+  padding:2px 6px;
+  border-radius:8px;
+}
+.hsf-corner-close:hover{
+  background:rgba(0,0,0,.06);
+  color:var(--hsf-text, #111827);
+}
+.hsf-corner-body{ padding:14px; }
+/* When in corner mode, let the moved form fill the panel */
+.hsf-corner-body form[data-hubspot-form]{
+  max-width:100% !important;
+  margin:0 !important;
+}
+  `.trim()
+
+  document.head.appendChild(style)
+}
+
 function mountCornerUI(
   form: HTMLFormElement,
   opts: VanillaHubSpotFormOptions['corner'] | undefined
 ): CornerMount {
+  ensureCornerStyles()
+
   const existingRootId = form.dataset.hsfCornerRootId
   if (existingRootId) {
     const existing = document.getElementById(existingRootId)

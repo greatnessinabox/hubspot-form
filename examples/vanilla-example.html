@@ -75,7 +75,7 @@
   <body>
     <h1>HubSpot Form Example</h1>
 
-    <form id="hubspot-form" data-hubspot-form>
+    <form id="hubspot-form" data-hubspot-form data-hsf-layout="inline">
       <div class="form-group">
         <label for="firstName">First Name *</label>
         <input type="text" id="firstName" name="firstName" required>
@@ -178,6 +178,7 @@
 
       // Initialize the form
       initHubSpotForm({
+        // Tip: you can also set data-hsf-layout="corner" on the <form> for a bottom-right popup
         portalId: '242432623',
         formGuid: 'YOUR_FORM_GUID', // Replace with your HubSpot Form GUID
         formId: 'hubspot-form',

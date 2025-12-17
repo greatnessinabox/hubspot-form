@@ -2,6 +2,9 @@
  * Example: React Implementation
  *
  * This example shows how to use the HubSpot form in a React application
+ *
+ * Note: the "corner popup" layout is a vanilla/Squarespace DOM feature (data-hsf-layout="corner").
+ * In React, you typically implement the popup/container UI yourself and render the form inside it.
  */
 
 import { HubSpotForm, useHubSpotForm } from '@greatnessinabox/hubspot-form/react'
