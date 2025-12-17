@@ -18,7 +18,7 @@ Before you begin, gather these from your HubSpot account:
 2. Paste this code in the **Footer** section:
 
 ```html
-<script src="https://unpkg.com/@greatnessinabox/hubspot-form@latest/dist/vanilla/index.js" type="module"></script>
+<script src="https://unpkg.com/@greatnessinabox/hubspot-form@latest/dist/vanilla/index.esm.js" type="module"></script>
 ```
 
 **OR** if you prefer to host it yourself, download the file and upload it to your Squarespace site, then reference it:
@@ -115,7 +115,7 @@ Add a **Code Block** to your Squarespace page where you want the form to appear:
 </style>
 
 <script type="module">
-  import { initHubSpotForm } from 'https://unpkg.com/@greatnessinabox/hubspot-form@latest/dist/vanilla/index.js';
+  import { initHubSpotForm } from 'https://unpkg.com/@greatnessinabox/hubspot-form@latest/dist/vanilla/index.esm.js';
 
   initHubSpotForm({
     portalId: 'YOUR_PORTAL_ID_HERE',
