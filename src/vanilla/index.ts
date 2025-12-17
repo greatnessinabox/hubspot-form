@@ -113,6 +113,9 @@ function ensureCornerStyles() {
   bottom:24px;
   z-index:999999;
   font-family:var(--hsf-font, ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace);
+  display:flex;
+  flex-direction:column;
+  align-items:flex-end;
 }
 .hsf-corner-launcher{
   appearance:none;
@@ -127,6 +130,7 @@ function ensureCornerStyles() {
   text-transform:uppercase;
   cursor:pointer;
   box-shadow:0 12px 28px rgba(0,0,0,.18);
+  align-self:flex-end;
 }
 .hsf-corner-panel{
   width:min(420px, calc(100vw - 48px));
