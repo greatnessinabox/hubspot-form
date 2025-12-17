@@ -1,0 +1,252 @@
+<form id="hubspot-contact-form" data-hubspot-form data-hsf-theme="light">
+  <div class="form-field">
+    <label for="firstName">First Name *</label>
+    <input type="text" id="firstName" name="firstName" required />
+  </div>
+
+  <div class="form-field">
+    <label for="lastName">Last Name *</label>
+    <input type="text" id="lastName" name="lastName" required />
+  </div>
+
+  <div class="form-field">
+    <label for="email">Email *</label>
+    <input type="email" id="email" name="email" required />
+  </div>
+
+  <div class="form-field">
+    <label for="phoneNumber">Phone Number (Optional)</label>
+    <div style="display:flex; gap:10px;">
+      <select id="countryCode" name="countryCode" style="width:120px;">
+        <option value="+1">+1 US</option>
+        <option value="+44">+44 UK</option>
+        <option value="+61">+61 AU</option>
+        <option value="+55">+55 BR</option>
+        <option value="+86">+86 CN</option>
+        <option value="+81">+81 JP</option>
+        <option value="+49">+49 DE</option>
+        <option value="+33">+33 FR</option>
+      </select>
+      <input type="tel" id="phoneNumber" name="phoneNumber" style="flex:1;" />
+    </div>
+  </div>
+
+  <div class="consent-text">
+    <p>
+      Anotherland will use your information to send you updates for the
+      subscriptions you
+      select below. You can unsubscribe at any time.
+    </p>
+    <p>
+      If you provide your cell number, you agree to receive text messages about
+      these updates.
+      Msg & data rates may apply. Message frequency may vary. Reply STOP to opt
+      out, HELP for
+      help. Consent isn't a condition of purchase.
+    </p>
+
+    <div class="checkbox-group">
+      <input type="checkbox" id="agreeArtistUpdates" name="agreeArtistUpdates"
+        value="true" required />
+      <label for="agreeArtistUpdates">I agree to receive updates about Matt
+        Crocker.*</label>
+    </div>
+
+    <div class="checkbox-group">
+      <input type="checkbox" id="agreeAnotherlandUpdates"
+        name="agreeAnotherlandUpdates" value="true" />
+      <label for="agreeAnotherlandUpdates">I agree to receive updates about
+        Anotherland.</label>
+    </div>
+
+    <p>By submitting, you consent to our Privacy Policy.</p>
+  </div>
+
+  <button type="submit">Submit</button>
+  <div id="form-message"></div>
+</form>
+
+<style>
+  :root {
+    --hsf-font: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    --hsf-bg: #ffffff;
+    --hsf-text: #111827;
+    --hsf-muted: #6b7280;
+    --hsf-border: #e5e7eb;
+    --hsf-input-bg: #ffffff;
+    --hsf-focus: #111827;
+    --hsf-button-bg: #111827;
+    --hsf-button-text: #ffffff;
+    --hsf-button-bg-hover: #000000;
+    --hsf-success-bg: #e8f5e9;
+    --hsf-success-text: #2e7d32;
+    --hsf-error-bg: #ffebee;
+    --hsf-error-text: #d32f2f;
+  }
+
+  form[data-hsf-theme="dark"] {
+    --hsf-bg: #000000;
+    --hsf-text: #ffffff;
+    --hsf-muted: #9ca3af;
+    --hsf-border: #374151;
+    --hsf-input-bg: #0a0a0a;
+    --hsf-focus: #ef4444;
+    --hsf-button-bg: #ef4444;
+    --hsf-button-bg-hover: #dc2626;
+  }
+
+  #hubspot-contact-form {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 24px;
+    background: var(--hsf-bg);
+    color: var(--hsf-text);
+    font-family: var(--hsf-font);
+    border: 1px solid var(--hsf-border);
+    border-radius: 10px;
+    box-sizing: border-box;
+  }
+
+  .form-field {
+    margin-bottom: 20px;
+  }
+
+  .form-field label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--hsf-text);
+  }
+
+  .form-field input[type="text"],
+  .form-field input[type="email"],
+  .form-field input[type="tel"],
+  .form-field select {
+    width: 100%;
+    height: 44px;
+    padding: 10px 12px;
+    border: 1px solid var(--hsf-border);
+    border-radius: 8px;
+    font-size: 14px;
+    font-family: var(--hsf-font);
+    background: var(--hsf-input-bg);
+    color: var(--hsf-text);
+    box-sizing: border-box;
+  }
+
+  .form-field input:focus,
+  .form-field select:focus {
+    outline: none;
+    border-color: var(--hsf-focus);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--hsf-focus) 20%, transparent);
+  }
+
+  .checkbox-group {
+    display: flex;
+    align-items: start;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+
+  .checkbox-group input[type="checkbox"] {
+    margin-top: 2px;
+    width: 16px;
+    height: 16px;
+    accent-color: var(--hsf-focus);
+  }
+
+  .consent-text {
+    padding-top: 16px;
+    font-size: 12px;
+    line-height: 1.5;
+    color: var(--hsf-muted);
+  }
+
+  .consent-text p {
+    margin: 0 0 12px;
+  }
+
+  .consent-text label {
+    color: var(--hsf-text);
+    font-size: 12px;
+    font-weight: 500;
+  }
+
+  button[type="submit"] {
+    width: 100%;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 10px;
+    background: var(--hsf-button-bg);
+    color: var(--hsf-button-text);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.2s;
+    font-family: var(--hsf-font);
+  }
+
+  button[type="submit"]:hover:not(:disabled) {
+    background: var(--hsf-button-bg-hover);
+  }
+
+  button[type="submit"]:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  #form-message {
+    margin-top: 16px;
+    padding: 12px;
+    border-radius: 4px;
+    display: none;
+    font-family: var(--hsf-font);
+  }
+
+  #form-message.success {
+    background: var(--hsf-success-bg);
+    color: var(--hsf-success-text);
+    display: block;
+  }
+
+  #form-message.error {
+    background: var(--hsf-error-bg);
+    color: var(--hsf-error-text);
+    display: block;
+  }
+</style>
+
+<script type="module">
+  import { initHubSpotForm } from 'https://unpkg.com/@greatnessinabox/hubspot-form@latest/dist/vanilla/index.mjs';
+
+  initHubSpotForm({
+    portalId: '242432623',
+    formGuid: '9ac168d7-1e16-4184-8192-39ca71b4e63d',
+    formId: 'hubspot-contact-form',
+    submissionMethod: 'direct',
+    validation: { requiredFields: ['firstName', 'lastName', 'email'] },
+    legalConsent: {
+      subscriptions: [
+        { id: '933574474', fieldName: 'agreeArtistUpdates', text: 'I agree to receive updates about Matt Crocker.', required: true },
+        { id: '933574493', fieldName: 'agreeAnotherlandUpdates', text: 'I agree to receive updates about Anotherland.', required: false },
+      ],
+    },
+    onSuccess: () => {
+      const messageEl = document.getElementById('form-message');
+      messageEl.className = 'success';
+      messageEl.textContent = 'Thank you! Your form has been submitted successfully.';
+      document.getElementById('hubspot-contact-form').reset();
+    },
+    onError: (error) => {
+      const messageEl = document.getElementById('form-message');
+      messageEl.className = 'error';
+      messageEl.textContent = 'There was an error submitting your form. Please try again.';
+      console.info('[hubspot-form] submission error', error);
+    },
+  });
+</script>

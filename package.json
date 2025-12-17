@@ -1,24 +1,24 @@
 {
   "name": "@greatnessinabox/hubspot-form",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A modular, framework-agnostic HubSpot form submission library for React, Vue, vanilla JS, and any web application",
   "main": "./dist/index.js",
-  "module": "./dist/index.esm.js",
+  "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/index.esm.js",
+      "import": "./dist/index.mjs",
       "require": "./dist/index.js"
     },
     "./react": {
       "types": "./dist/react/index.d.ts",
-      "import": "./dist/react/index.esm.js",
+      "import": "./dist/react/index.mjs",
       "require": "./dist/react/index.js"
     },
     "./vanilla": {
       "types": "./dist/vanilla/index.d.ts",
-      "import": "./dist/vanilla/index.esm.js",
+      "import": "./dist/vanilla/index.mjs",
       "require": "./dist/vanilla/index.js"
     }
   },

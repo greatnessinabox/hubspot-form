@@ -31,7 +31,7 @@ Just use the CDN - see [Squarespace Guide](./SQUARESPACE_GUIDE.md) for step-by-s
 
 ```html
 <script type="module">
-  import { initHubSpotForm } from 'https://unpkg.com/@greatnessinabox/hubspot-form@latest/dist/vanilla/index.esm.js';
+  import { initHubSpotForm } from 'https://unpkg.com/@greatnessinabox/hubspot-form@latest/dist/vanilla/index.mjs';
   // ... setup code
 </script>
 ```
