@@ -43,6 +43,104 @@
         --hsf-button-bg-hover: #dc2626;
       }
 
+      /* Optional: set data-hsf-layout="corner" on the form for a bottom-right popup */
+      .hsf-corner-root {
+        position: fixed;
+        right: 24px;
+        bottom: 24px;
+        z-index: 999999;
+        font-family: var(--hsf-font);
+      }
+
+      .hsf-corner-launcher {
+        appearance: none;
+        border: 0;
+        border-radius: 12px;
+        padding: 12px 14px;
+        background: var(--hsf-button-bg);
+        color: var(--hsf-button-text);
+        font-family: var(--hsf-font);
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        cursor: pointer;
+        box-shadow: 0 12px 28px rgba(0, 0, 0, 0.18);
+      }
+
+      .hsf-corner-panel {
+        width: min(420px, calc(100vw - 48px));
+        margin-bottom: 12px;
+        background: var(--hsf-bg);
+        color: var(--hsf-text);
+        border: 1px solid var(--hsf-border);
+        border-radius: 14px;
+        box-shadow: 0 18px 44px rgba(0, 0, 0, 0.22);
+        overflow: hidden;
+        transform: translateY(8px);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 160ms ease, transform 160ms ease;
+      }
+
+      .hsf-corner-panel.is-open {
+        transform: translateY(0);
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      .hsf-corner-header {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 14px 14px 10px;
+        border-bottom: 1px solid var(--hsf-border);
+      }
+
+      .hsf-corner-title {
+        font-weight: 800;
+        font-size: 14px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .hsf-corner-description {
+        margin-top: 4px;
+        font-size: 12px;
+        color: var(--hsf-muted);
+        line-height: 1.4;
+      }
+
+      .hsf-corner-close {
+        appearance: none;
+        border: 0;
+        background: transparent;
+        color: var(--hsf-muted);
+        font-size: 22px;
+        line-height: 1;
+        cursor: pointer;
+        padding: 2px 6px;
+        border-radius: 8px;
+      }
+
+      .hsf-corner-close:hover {
+        background: color-mix(in srgb, var(--hsf-border) 45%, transparent);
+        color: var(--hsf-text);
+      }
+
+      .hsf-corner-body {
+        padding: 14px;
+      }
+
+      /* When in corner mode, let the form fill the panel */
+      .hsf-corner-body #hubspot-contact-form {
+        max-width: 100%;
+        margin: 0;
+        padding: 0;
+        border: 0;
+        border-radius: 0;
+      }
+
       #hubspot-contact-form {
         max-width: 600px;
         margin: 0 auto;
@@ -194,7 +292,7 @@
   <body>
     <!-- Copy everything from here down into your Squarespace Code Block -->
 
-    <form id="hubspot-contact-form" data-hubspot-form data-hsf-theme="light">
+    <form id="hubspot-contact-form" data-hubspot-form data-hsf-theme="light" data-hsf-layout="inline">
       <div class="form-field">
         <label for="firstName">First Name *</label>
         <input type="text" id="firstName" name="firstName" required>

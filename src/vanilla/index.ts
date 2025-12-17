@@ -7,6 +7,27 @@ export interface VanillaHubSpotFormOptions extends HubSpotFormConfig {
   formSelector?: string // CSS selector for the form element
   formId?: string // ID of the form element
   autoInit?: boolean // Automatically initialize on DOMContentLoaded
+  /**
+   * UI layout mode.
+   * - 'inline' (default): leaves the form where it is in the DOM
+   * - 'corner': moves the form into a bottom-right popup panel with a launcher button
+   *
+   * You can also set this via the form attribute: data-hsf-layout="corner"
+   */
+  layout?: 'inline' | 'corner'
+  /**
+   * Corner popup UI options (only used when layout === 'corner')
+   */
+  corner?: {
+    launcherText?: string
+    title?: string
+    description?: string
+    defaultOpen?: boolean
+  }
+}
+
+type CornerMount = {
+  destroy: () => void
 }
 
 /**
@@ -69,6 +90,140 @@ function setFormErrors(form: HTMLFormElement, errors: Record<string, string>) {
   }
 }
 
+function readLayoutFromDataset(form: HTMLFormElement): 'inline' | 'corner' | null {
+  const raw = form.getAttribute('data-hsf-layout') || form.dataset.hsfLayout
+  if (!raw) return null
+  if (raw === 'corner') return 'corner'
+  if (raw === 'inline') return 'inline'
+  return null
+}
+
+function mountCornerUI(
+  form: HTMLFormElement,
+  opts: VanillaHubSpotFormOptions['corner'] | undefined
+): CornerMount {
+  const existingRootId = form.dataset.hsfCornerRootId
+  if (existingRootId) {
+    const existing = document.getElementById(existingRootId)
+    if (existing) {
+      return {
+        destroy: () => {
+          // Best-effort cleanup; if user calls init twice we won't double-mount
+          existing.remove()
+          delete form.dataset.hsfCornerRootId
+        },
+      }
+    }
+    delete form.dataset.hsfCornerRootId
+  }
+
+  const formId = form.id || `hubspot-form-${Math.random().toString(16).slice(2)}`
+  if (!form.id) form.id = formId
+
+  const root = document.createElement('div')
+  root.className = 'hsf-corner-root'
+  root.id = `hsf-corner-${formId}`
+  form.dataset.hsfCornerRootId = root.id
+
+  const launcher = document.createElement('button')
+  launcher.type = 'button'
+  launcher.className = 'hsf-corner-launcher'
+  launcher.textContent = opts?.launcherText || 'Sign up'
+  launcher.setAttribute('aria-expanded', 'false')
+  launcher.setAttribute('aria-controls', `${root.id}-panel`)
+
+  const panel = document.createElement('div')
+  panel.className = 'hsf-corner-panel'
+  panel.id = `${root.id}-panel`
+  panel.setAttribute('role', 'dialog')
+  panel.setAttribute('aria-modal', 'false')
+  panel.setAttribute('aria-hidden', 'true')
+
+  const header = document.createElement('div')
+  header.className = 'hsf-corner-header'
+
+  const headerText = document.createElement('div')
+  headerText.className = 'hsf-corner-header-text'
+
+  const title = document.createElement('div')
+  title.className = 'hsf-corner-title'
+  title.textContent = opts?.title || 'Join'
+
+  headerText.appendChild(title)
+
+  if (opts?.description) {
+    const desc = document.createElement('div')
+    desc.className = 'hsf-corner-description'
+    desc.textContent = opts.description
+    headerText.appendChild(desc)
+  }
+
+  const closeBtn = document.createElement('button')
+  closeBtn.type = 'button'
+  closeBtn.className = 'hsf-corner-close'
+  closeBtn.textContent = '×'
+  closeBtn.setAttribute('aria-label', 'Close')
+
+  header.appendChild(headerText)
+  header.appendChild(closeBtn)
+
+  const body = document.createElement('div')
+  body.className = 'hsf-corner-body'
+
+  // Preserve original position so we can restore on destroy
+  const originalParent = form.parentElement
+  const originalNextSibling = form.nextSibling
+
+  body.appendChild(form)
+  panel.appendChild(header)
+  panel.appendChild(body)
+  root.appendChild(panel)
+  root.appendChild(launcher)
+  document.body.appendChild(root)
+
+  const setOpen = (open: boolean) => {
+    launcher.setAttribute('aria-expanded', open ? 'true' : 'false')
+    panel.setAttribute('aria-hidden', open ? 'false' : 'true')
+    panel.classList.toggle('is-open', open)
+    launcher.classList.toggle('is-open', open)
+  }
+
+  const toggle = () => setOpen(panel.getAttribute('aria-hidden') !== 'false')
+
+  const onLauncherClick = () => toggle()
+  const onCloseClick = () => setOpen(false)
+  const onKeyDown = (e: KeyboardEvent) => {
+    if (e.key === 'Escape') setOpen(false)
+  }
+
+  launcher.addEventListener('click', onLauncherClick)
+  closeBtn.addEventListener('click', onCloseClick)
+  document.addEventListener('keydown', onKeyDown)
+
+  // Default open/closed state
+  setOpen(Boolean(opts?.defaultOpen))
+
+  return {
+    destroy: () => {
+      launcher.removeEventListener('click', onLauncherClick)
+      closeBtn.removeEventListener('click', onCloseClick)
+      document.removeEventListener('keydown', onKeyDown)
+
+      // Restore the form to its original location if possible
+      if (originalParent) {
+        if (originalNextSibling && originalNextSibling.parentNode === originalParent) {
+          originalParent.insertBefore(form, originalNextSibling)
+        } else {
+          originalParent.appendChild(form)
+        }
+      }
+
+      root.remove()
+      delete form.dataset.hsfCornerRootId
+    },
+  }
+}
+
 /**
  * Initialize HubSpot form on a form element
  */
@@ -80,10 +235,13 @@ export function initHubSpotForm(options: VanillaHubSpotFormOptions): {
     formSelector,
     formId,
     autoInit = true,
+    layout: layoutOverride,
+    corner,
     ...config
   } = options
 
   let formElement: HTMLFormElement | null = null
+  let cornerMount: CornerMount | null = null
 
   const findForm = (): HTMLFormElement | null => {
     if (formId) {
@@ -161,12 +319,21 @@ export function initHubSpotForm(options: VanillaHubSpotFormOptions): {
       return
     }
 
+    const layout = layoutOverride || readLayoutFromDataset(formElement) || 'inline'
+    if (layout === 'corner') {
+      cornerMount = mountCornerUI(formElement, corner)
+    }
+
     formElement.addEventListener('submit', handleSubmit)
   }
 
   const destroy = () => {
     if (formElement) {
       formElement.removeEventListener('submit', handleSubmit)
+    }
+    if (cornerMount) {
+      cornerMount.destroy()
+      cornerMount = null
     }
   }
 
