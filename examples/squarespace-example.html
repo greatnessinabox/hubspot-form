@@ -424,6 +424,8 @@
         formGuid: 'YOUR_FORM_GUID', // Replace with your HubSpot Form GUID
         formId: 'hubspot-contact-form',
         submissionMethod: 'direct',
+        // Optional: Redirect to a URL after successful submission
+        // redirectUrl: 'https://example.com/thank-you',
         validation: {
           requiredFields: ['firstName', 'lastName', 'email']
         },
@@ -452,11 +454,6 @@
           messageEl.className = 'success';
           messageEl.textContent = 'Thank you! Your form has been submitted successfully.';
           document.getElementById('hubspot-contact-form').reset();
-
-          // Optional: Redirect after 3 seconds
-          // setTimeout(() => {
-          //   window.location.href = '/thank-you';
-          // }, 3000);
         },
         onError: (error) => {
           const messageEl = document.getElementById('form-message');

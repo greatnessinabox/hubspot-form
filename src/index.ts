@@ -5,7 +5,7 @@
  */
 
 export * from './types'
-export { submitToHubSpot, validateFormData } from './core/submit'
+export { submitToHubSpot, validateFormData, isSafeRedirectUrl } from './core/submit'
 
 
 

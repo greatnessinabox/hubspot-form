@@ -47,6 +47,7 @@ Optional:
 
 - Set `data-hsf-theme="dark"` on the `<form ...>` for a UNITED-like dark theme (default is `light`).
 - Set `data-hsf-layout="corner"` on the `<form ...>` to render the form as a bottom-right popup (default is `inline`).
+- Set `redirectUrl: 'https://example.com/thank-you'` in the config to redirect users to a specific page after a successful submission (e.g., an embedded YouTube video page).
 
 ### Step 4: Save and Test
 
