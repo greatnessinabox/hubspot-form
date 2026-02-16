@@ -1,4 +1,4 @@
-import { submitToHubSpot, validateFormData, type HubSpotFormConfig } from '../index'
+import { submitToHubSpot, validateFormData, isSafeRedirectUrl, type HubSpotFormConfig } from '../index'
 
 /**
  * Initialize HubSpot form on a DOM element
@@ -398,7 +398,7 @@ export function initHubSpotForm(options: VanillaHubSpotFormOptions): {
           ? result.error.message
           : String(result.error || 'Form submission failed')
         setFormErrors(formElement, { _general: errorMessage })
-      } else if (config.redirectUrl) {
+      } else if (config.redirectUrl && isSafeRedirectUrl(config.redirectUrl)) {
         window.location.href = config.redirectUrl
         return
       }

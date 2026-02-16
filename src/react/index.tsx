@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState, useCallback, type FormEvent } from 'react'
-import { submitToHubSpot, validateFormData, type HubSpotFormConfig, type DefaultFormData } from '../index'
+import { submitToHubSpot, validateFormData, isSafeRedirectUrl, type HubSpotFormConfig, type DefaultFormData } from '../index'
 
 export interface HubSpotFormProps extends HubSpotFormConfig {
   children?: React.ReactNode
@@ -64,7 +64,7 @@ export function useHubSpotForm(config: HubSpotFormConfig, initialData?: Partial<
           ? result.error.message
           : String(result.error || 'Form submission failed')
         setErrors({ _general: errorMessage })
-      } else if (config.redirectUrl && typeof window !== 'undefined') {
+      } else if (config.redirectUrl && typeof window !== 'undefined' && isSafeRedirectUrl(config.redirectUrl)) {
         window.location.href = config.redirectUrl
       }
 

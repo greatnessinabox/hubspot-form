@@ -7,6 +7,21 @@ import type {
 } from '../types'
 
 /**
+ * Check if a redirect URL is safe (relative path, or http/https)
+ */
+export function isSafeRedirectUrl(url: string): boolean {
+  if (url.startsWith('/') || url.startsWith('./') || url.startsWith('../')) {
+    return true
+  }
+  try {
+    const parsed = new URL(url)
+    return parsed.protocol === 'http:' || parsed.protocol === 'https:'
+  } catch {
+    return false
+  }
+}
+
+/**
  * Get hutk cookie from browser
  */
 function getHutkCookie(): string | null {
