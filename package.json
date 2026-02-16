@@ -1,6 +1,6 @@
 {
   "name": "@greatnessinabox/hubspot-form",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "A modular, framework-agnostic HubSpot form submission library for React, Vue, vanilla JS, and any web application",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
