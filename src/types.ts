@@ -68,6 +68,9 @@ export interface HubSpotFormConfig {
     customValidator?: (formData: Record<string, any>) => string | null // Returns error message or null
   }
 
+  // Redirect after successful submission
+  redirectUrl?: string // URL to redirect to after successful submission (leave empty for no redirect)
+
   // Callbacks
   onSuccess?: (response: any) => void
   onError?: (error: Error | any) => void

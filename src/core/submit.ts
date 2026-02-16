@@ -212,6 +212,11 @@ export async function submitToHubSpot(
       config.onSuccess(responseData)
     }
 
+    // Redirect after successful submission if redirectUrl is configured
+    if (config.redirectUrl && typeof window !== 'undefined') {
+      window.location.href = config.redirectUrl
+    }
+
     return result
   } catch (error) {
     const err = error instanceof Error ? error : new Error(String(error))

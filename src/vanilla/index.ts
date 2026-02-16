@@ -390,8 +390,14 @@ export function initHubSpotForm(options: VanillaHubSpotFormOptions): {
       }
     }
 
+    // Allow redirectUrl to be set via data attribute on the form element
+    const effectiveConfig = { ...config }
+    if (!effectiveConfig.redirectUrl && formElement.dataset.hsfRedirect) {
+      effectiveConfig.redirectUrl = formElement.dataset.hsfRedirect
+    }
+
     try {
-      const result = await submitToHubSpot(formData, config)
+      const result = await submitToHubSpot(formData, effectiveConfig)
 
       if (!result.success) {
         const errorMessage = result.error instanceof Error
@@ -399,6 +405,9 @@ export function initHubSpotForm(options: VanillaHubSpotFormOptions): {
           : String(result.error || 'Form submission failed')
         setFormErrors(formElement, { _general: errorMessage })
       }
+      // If redirectUrl is set and submission succeeded, the page is navigating away —
+      // skip re-enabling the button so the user sees "Submitting..." until redirect completes.
+      if (result.success && effectiveConfig.redirectUrl) return
     } catch (error) {
       const errorMessage = error instanceof Error ? error.message : 'An unexpected error occurred'
       setFormErrors(formElement, { _general: errorMessage })
