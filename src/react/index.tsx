@@ -64,6 +64,8 @@ export function useHubSpotForm(config: HubSpotFormConfig, initialData?: Partial<
           ? result.error.message
           : String(result.error || 'Form submission failed')
         setErrors({ _general: errorMessage })
+      } else if (config.redirectUrl && typeof window !== 'undefined') {
+        window.location.href = config.redirectUrl
       }
 
       return result

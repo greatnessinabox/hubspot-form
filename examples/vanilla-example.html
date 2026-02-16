@@ -184,6 +184,8 @@
         formId: 'hubspot-form',
         submissionMethod: 'direct', // or 'proxy' if using a backend endpoint
         // proxyEndpoint: '/api/submit-form', // Required if submissionMethod is 'proxy'
+        // Optional: Redirect to a URL after successful submission
+        // redirectUrl: 'https://example.com/thank-you',
         validation: {
           requiredFields: ['firstName', 'lastName', 'email']
         },
@@ -210,8 +212,6 @@
         onSuccess: (data) => {
           alert('Form submitted successfully!');
           console.log('Success:', data);
-          // Redirect or show success message
-          // window.location.href = '/thank-you'
         },
         onError: (error) => {
           console.error('Form submission error:', error);
