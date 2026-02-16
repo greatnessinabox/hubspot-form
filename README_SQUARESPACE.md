@@ -23,7 +23,8 @@ Find and replace these in the code:
 
 - `YOUR_FORM_GUID` → Your HubSpot Form GUID
 - `YOUR_ARTIST_SUBSCRIPTION_ID` → The artist subscription ID (required checkbox)
-- `ARTIST_NAME` → The artist name shown in the required checkbox label/text
+- `ARTIST_NAME` → The artist name shown in the required checkbox label/text and the hidden `temp_artist_association` field
+- `REDIRECT_URL` → (Optional) A URL to redirect to after submission (e.g. a YouTube video). Leave as `""` to show the default thank-you message
 
 ### Step 3: Save and Test
 

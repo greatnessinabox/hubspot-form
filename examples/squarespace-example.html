@@ -1,473 +1,324 @@
-<!DOCTYPE html>
-<html lang="en">
+<form id="hubspot-contact-form" data-hubspot-form data-hsf-theme="light"
+  data-hsf-layout="corner">
+  <input type="hidden" name="temp_artist_association" value="Matt Crocker" />
 
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HubSpot Form - Squarespace Example</title>
-    <style>
-      /* Copy this entire style block into your Squarespace Code Block */
-      :root {
-        --hsf-font: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
-          "Liberation Mono", "Courier New", monospace;
+  <div class="form-field">
+    <label for="firstName">First Name *</label>
+    <input type="text" id="firstName" name="firstName" required />
+  </div>
 
-        /* Default theme: light (dark text) */
-        --hsf-bg: #ffffff;
-        --hsf-text: #111827;
-        --hsf-muted: #6b7280;
-        --hsf-border: #e5e7eb;
-        --hsf-input-bg: #ffffff;
-        --hsf-focus: #111827;
+  <div class="form-field">
+    <label for="lastName">Last Name *</label>
+    <input type="text" id="lastName" name="lastName" required />
+  </div>
 
-        --hsf-button-bg: #111827;
-        --hsf-button-text: #ffffff;
-        --hsf-button-bg-hover: #000000;
+  <div class="form-field">
+    <label for="email">Email *</label>
+    <input type="email" id="email" name="email" required />
+  </div>
 
-        --hsf-success-bg: #e8f5e9;
-        --hsf-success-text: #2e7d32;
-        --hsf-error-bg: #ffebee;
-        --hsf-error-text: #d32f2f;
-      }
+  <div class="form-field">
+    <label for="phoneNumber">Phone Number (Optional)</label>
+    <div style="display:flex; gap:10px;">
+      <select id="countryCode" name="countryCode" style="width:120px;">
+        <option value="+1">🇺🇸 +1 United States</option>
+        <option value="+61">🇦🇺 +61 Australia</option>
+        <option value="+55">🇧🇷 +55 Brazil</option>
+        <option value="+7">🇷🇺 +7 Russia</option>
+        <option value="+20">🇪🇬 +20 Egypt</option>
+        <option value="+27">🇿🇦 +27 South Africa</option>
+        <option value="+30">🇬🇷 +30 Greece</option>
+        <option value="+31">🇳🇱 +31 Netherlands</option>
+        <option value="+32">🇧🇪 +32 Belgium</option>
+        <option value="+33">🇫🇷 +33 France</option>
+        <option value="+34">🇪🇸 +34 Spain</option>
+        <option value="+39">🇮🇹 +39 Italy</option>
+        <option value="+40">🇷🇴 +40 Romania</option>
+        <option value="+41">🇨🇭 +41 Switzerland</option>
+        <option value="+43">🇦🇹 +43 Austria</option>
+        <option value="+44">🇬🇧 +44 United Kingdom</option>
+        <option value="+45">🇩🇰 +45 Denmark</option>
+        <option value="+46">🇸🇪 +46 Sweden</option>
+        <option value="+47">🇳🇴 +47 Norway</option>
+        <option value="+48">🇵🇱 +48 Poland</option>
+        <option value="+49">🇩🇪 +49 Germany</option>
+        <option value="+51">🇵🇪 +51 Peru</option>
+        <option value="+52">🇲🇽 +52 Mexico</option>
+        <option value="+54">🇦🇷 +54 Argentina</option>
+        <option value="+56">🇨🇱 +56 Chile</option>
+        <option value="+57">🇨🇴 +57 Colombia</option>
+        <option value="+58">🇻🇪 +58 Venezuela</option>
+        <option value="+60">🇲🇾 +60 Malaysia</option>
+        <option value="+62">🇮🇩 +62 Indonesia</option>
+        <option value="+63">🇵🇭 +63 Philippines</option>
+        <option value="+64">🇳🇿 +64 New Zealand</option>
+        <option value="+65">🇸🇬 +65 Singapore</option>
+        <option value="+66">🇹🇭 +66 Thailand</option>
+        <option value="+77">🇰🇿 +77 Kazakhstan</option>
+        <option value="+81">🇯🇵 +81 Japan</option>
+        <option value="+82">🇰🇷 +82 South Korea</option>
+        <option value="+84">🇻🇳 +84 Vietnam</option>
+        <option value="+86">🇨🇳 +86 China</option>
+        <option value="+91">🇮🇳 +91 India</option>
+        <option value="+92">🇵🇰 +92 Pakistan</option>
+        <option value="+94">🇱🇰 +94 Sri Lanka</option>
+        <option value="+212">🇲🇦 +212 Morocco</option>
+        <option value="+234">🇳🇬 +234 Nigeria</option>
+        <option value="+254">🇰🇪 +254 Kenya</option>
+        <option value="+256">🇺🇬 +256 Uganda</option>
+        <option value="+263">🇿🇼 +263 Zimbabwe</option>
+        <option value="+591">🇧🇴 +591 Bolivia</option>
+        <option value="+593">🇪🇨 +593 Ecuador</option>
+        <option value="+595">🇵🇾 +595 Paraguay</option>
+        <option value="+597">🇸🇷 +597 Suriname</option>
+        <option value="+598">🇺🇾 +598 Uruguay</option>
+        <option value="+971">🇦🇪 +971 United Arab Emirates</option>
+      </select>
+      <input type="tel" id="phoneNumber" name="phoneNumber" style="flex:1;" />
+    </div>
+  </div>
 
-      /* Optional: set data-hsf-theme="dark" on the form for a UNITED-like vibe */
-      form[data-hsf-theme="dark"] {
-        --hsf-bg: #000000;
-        --hsf-text: #ffffff;
-        --hsf-muted: #9ca3af;
-        --hsf-border: #374151;
-        --hsf-input-bg: #0a0a0a;
-        --hsf-focus: #ef4444;
+  <div class="consent-text">
+    <p>
+      Anotherland will use your information to send you updates for the
+      subscriptions you
+      select below. You can unsubscribe at any time.
+    </p>
+    <p>
+      If you provide your cell number, you agree to receive text messages about
+      these updates.
+      Msg & data rates may apply. Message frequency may vary. Reply STOP to opt
+      out, HELP for
+      help. Consent isn't a condition of purchase.
+    </p>
 
-        --hsf-button-bg: #ef4444;
-        --hsf-button-text: #ffffff;
-        --hsf-button-bg-hover: #dc2626;
-      }
+    <div class="checkbox-group">
+      <input type="checkbox" id="agreeArtistUpdates" name="agreeArtistUpdates"
+        value="true" required />
+      <label for="agreeArtistUpdates">I agree to receive updates about Matt
+        Crocker.*</label>
+    </div>
 
-      /* Optional: set data-hsf-layout="corner" on the form for a bottom-right popup */
-      .hsf-corner-root {
-        position: fixed;
-        right: 24px;
-        bottom: 24px;
-        z-index: 999999;
-        font-family: var(--hsf-font);
-        display: flex;
-        flex-direction: column;
-        align-items: flex-end;
-      }
+    <div class="checkbox-group">
+      <input type="checkbox" id="agreeAnotherlandUpdates"
+        name="agreeAnotherlandUpdates" value="true" />
+      <label for="agreeAnotherlandUpdates">I agree to receive updates about
+        Anotherland.</label>
+    </div>
 
-      .hsf-corner-launcher {
-        appearance: none;
-        border: 0;
-        border-radius: 12px;
-        padding: 12px 14px;
-        background: var(--hsf-button-bg);
-        color: var(--hsf-button-text);
-        font-family: var(--hsf-font);
-        font-weight: 700;
-        letter-spacing: 0.06em;
-        text-transform: uppercase;
-        cursor: pointer;
-        box-shadow: 0 12px 28px rgba(0, 0, 0, 0.18);
-        align-self: flex-end;
-      }
+    <p>By submitting, you consent to our Privacy Policy.</p>
+  </div>
 
-      .hsf-corner-panel {
-        width: min(420px, calc(100vw - 48px));
-        margin-bottom: 12px;
-        background: var(--hsf-bg);
-        color: var(--hsf-text);
-        border: 1px solid var(--hsf-border);
-        border-radius: 14px;
-        box-shadow: 0 18px 44px rgba(0, 0, 0, 0.22);
-        overflow: hidden;
-        transform: translateY(8px);
-        opacity: 0;
-        pointer-events: none;
-        transition: opacity 160ms ease, transform 160ms ease;
-      }
+  <button type="submit">Submit</button>
+  <div id="form-message"></div>
+</form>
 
-      .hsf-corner-panel.is-open {
-        transform: translateY(0);
-        opacity: 1;
-        pointer-events: auto;
-      }
+<style>
+  :root {
+    --hsf-font: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
+      "Courier New", monospace;
+    --hsf-bg: #ffffff;
+    --hsf-text: #111827;
+    --hsf-muted: #6b7280;
+    --hsf-border: #e5e7eb;
+    --hsf-input-bg: #ffffff;
+    --hsf-focus: #111827;
+    --hsf-button-bg: #111827;
+    --hsf-button-text: #ffffff;
+    --hsf-button-bg-hover: #000000;
+    --hsf-success-bg: #e8f5e9;
+    --hsf-success-text: #2e7d32;
+    --hsf-error-bg: #ffebee;
+    --hsf-error-text: #d32f2f;
+  }
 
-      .hsf-corner-header {
-        display: flex;
-        align-items: flex-start;
-        justify-content: space-between;
-        gap: 12px;
-        padding: 14px 14px 10px;
-        border-bottom: 1px solid var(--hsf-border);
-      }
+  form[data-hsf-theme="dark"] {
+    --hsf-bg: #000000;
+    --hsf-text: #ffffff;
+    --hsf-muted: #9ca3af;
+    --hsf-border: #374151;
+    --hsf-input-bg: #0a0a0a;
+    --hsf-focus: #ef4444;
+    --hsf-button-bg: #ef4444;
+    --hsf-button-bg-hover: #dc2626;
+  }
 
-      .hsf-corner-title {
-        font-weight: 800;
-        font-size: 14px;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-      }
+  #hubspot-contact-form {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 24px;
+    background: var(--hsf-bg);
+    color: var(--hsf-text);
+    font-family: var(--hsf-font);
+    border: 1px solid var(--hsf-border);
+    border-radius: 10px;
+    box-sizing: border-box;
+  }
 
-      .hsf-corner-description {
-        margin-top: 4px;
-        font-size: 12px;
-        color: var(--hsf-muted);
-        line-height: 1.4;
-      }
+  .form-field {
+    margin-bottom: 20px;
+  }
 
-      .hsf-corner-close {
-        appearance: none;
-        border: 0;
-        background: transparent;
-        color: var(--hsf-muted);
-        font-size: 22px;
-        line-height: 1;
-        cursor: pointer;
-        padding: 2px 6px;
-        border-radius: 8px;
-      }
+  .form-field label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--hsf-text);
+  }
 
-      .hsf-corner-close:hover {
-        background: color-mix(in srgb, var(--hsf-border) 45%, transparent);
-        color: var(--hsf-text);
-      }
+  .form-field input[type="text"],
+  .form-field input[type="email"],
+  .form-field input[type="tel"],
+  .form-field select {
+    width: 100%;
+    height: 44px;
+    padding: 10px 12px;
+    border: 1px solid var(--hsf-border);
+    border-radius: 8px;
+    font-size: 14px;
+    font-family: var(--hsf-font);
+    background: var(--hsf-input-bg);
+    color: var(--hsf-text);
+    box-sizing: border-box;
+  }
 
-      .hsf-corner-body {
-        padding: 14px;
-      }
+  .form-field input:focus,
+  .form-field select:focus {
+    outline: none;
+    border-color: var(--hsf-focus);
+    box-shadow: 0 0 0 3px color-mix(in srgb, var(--hsf-focus) 20%, transparent);
+  }
 
-      /* When in corner mode, let the form fill the panel */
-      .hsf-corner-body #hubspot-contact-form {
-        max-width: 100%;
-        margin: 0;
-        padding: 0;
-        border: 0;
-        border-radius: 0;
-      }
+  .checkbox-group {
+    display: flex;
+    align-items: start;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
 
-      #hubspot-contact-form {
-        max-width: 600px;
-        margin: 0 auto;
-        padding: 24px;
-        background: var(--hsf-bg);
-        color: var(--hsf-text);
-        font-family: var(--hsf-font);
-        border: 1px solid var(--hsf-border);
-        border-radius: 10px;
-        box-sizing: border-box;
-      }
+  .checkbox-group input[type="checkbox"] {
+    margin-top: 2px;
+    width: 16px;
+    height: 16px;
+    accent-color: var(--hsf-focus);
+  }
 
-      .form-field {
-        margin-bottom: 20px;
-      }
+  .consent-text {
+    padding-top: 16px;
+    font-size: 12px;
+    line-height: 1.5;
+    color: var(--hsf-muted);
+  }
 
-      .form-field label {
-        display: block;
-        margin-bottom: 8px;
-        font-weight: 600;
-        font-size: 12px;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-        color: var(--hsf-text);
-      }
+  .consent-text p {
+    margin: 0 0 12px;
+  }
 
-      .form-field input[type="text"],
-      .form-field input[type="email"],
-      .form-field input[type="tel"],
-      .form-field select {
-        width: 100%;
-        height: 44px;
-        padding: 10px 12px;
-        border: 1px solid var(--hsf-border);
-        border-radius: 8px;
-        font-size: 14px;
-        font-family: var(--hsf-font);
-        background: var(--hsf-input-bg);
-        color: var(--hsf-text);
-        box-sizing: border-box;
-      }
+  .consent-text label {
+    color: var(--hsf-text);
+    font-size: 12px;
+    font-weight: 500;
+  }
 
-      .form-field input::placeholder {
-        color: var(--hsf-muted);
-        text-transform: uppercase;
-      }
+  button[type="submit"] {
+    width: 100%;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 10px;
+    background: var(--hsf-button-bg);
+    color: var(--hsf-button-text);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.2s;
+    font-family: var(--hsf-font);
+  }
 
-      .form-field input:focus,
-      .form-field select:focus {
-        outline: none;
-        border-color: var(--hsf-focus);
-        box-shadow: 0 0 0 3px color-mix(in srgb, var(--hsf-focus) 20%, transparent);
-      }
+  button[type="submit"]:hover:not(:disabled) {
+    background: var(--hsf-button-bg-hover);
+  }
 
-      .checkbox-group {
-        display: flex;
-        align-items: start;
-        gap: 8px;
-        margin-bottom: 12px;
-      }
+  button[type="submit"]:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
 
-      .checkbox-group input[type="checkbox"] {
-        margin-top: 2px;
-        width: 16px;
-        height: 16px;
-        accent-color: var(--hsf-focus);
-      }
+  #form-message {
+    margin-top: 16px;
+    padding: 12px;
+    border-radius: 4px;
+    display: none;
+    font-family: var(--hsf-font);
+  }
 
-      .consent-text {
-        padding-top: 16px;
-        font-size: 12px;
-        line-height: 1.5;
-        color: var(--hsf-muted);
-      }
+  #form-message.success {
+    background: var(--hsf-success-bg);
+    color: var(--hsf-success-text);
+    display: block;
+  }
 
-      .consent-text p {
-        margin: 0 0 12px;
-      }
+  #form-message.error {
+    background: var(--hsf-error-bg);
+    color: var(--hsf-error-text);
+    display: block;
+  }
+</style>
 
-      .consent-text label {
-        font-family: var(--hsf-font);
-        color: var(--hsf-text);
-        font-size: 12px;
-        text-transform: none;
-        letter-spacing: normal;
-        font-weight: 500;
-      }
+<script type="module">
+  import { initHubSpotForm } from "https://unpkg.com/@greatnessinabox/hubspot-form@latest/dist/vanilla/index.mjs";
 
-      .hubspot-form-error {
-        color: var(--hsf-error-text);
-        font-size: 14px;
-        margin-top: 4px;
-      }
+  // Optional: set a URL to redirect to after successful submission.
+  // Leave empty ("") to show the default thank-you message instead.
+  const REDIRECT_URL = "";
 
-      .hubspot-form-error-general {
-        background: var(--hsf-error-bg);
-        padding: 12px;
-        border-radius: 4px;
-        margin-bottom: 16px;
-      }
-
-      button[type="submit"] {
-        width: 100%;
-        padding: 12px 24px;
-        background: var(--hsf-button-bg);
-        color: var(--hsf-button-text);
-        border: none;
-        border-radius: 10px;
-        font-size: 13px;
-        font-weight: 700;
-        letter-spacing: 0.12em;
-        text-transform: uppercase;
-        cursor: pointer;
-        transition: background 0.2s;
-        font-family: var(--hsf-font);
-      }
-
-      button[type="submit"]:hover:not(:disabled) {
-        background: var(--hsf-button-bg-hover);
-      }
-
-      button[type="submit"]:disabled {
-        opacity: 0.6;
-        cursor: not-allowed;
-      }
-
-      #form-message {
-        margin-top: 16px;
-        padding: 12px;
-        border-radius: 4px;
-        display: none;
-        font-family: var(--hsf-font);
-      }
-
-      #form-message.success {
-        background: var(--hsf-success-bg);
-        color: var(--hsf-success-text);
-        display: block;
-      }
-
-      #form-message.error {
-        background: var(--hsf-error-bg);
-        color: var(--hsf-error-text);
-        display: block;
-      }
-    </style>
-  </head>
-
-  <body>
-    <!-- Copy everything from here down into your Squarespace Code Block -->
-
-    <form id="hubspot-contact-form" data-hubspot-form data-hsf-theme="light"
-      data-hsf-layout="corner">
-      <div class="form-field">
-        <label for="firstName">First Name *</label>
-        <input type="text" id="firstName" name="firstName" required>
-      </div>
-
-      <div class="form-field">
-        <label for="lastName">Last Name *</label>
-        <input type="text" id="lastName" name="lastName" required>
-      </div>
-
-      <div class="form-field">
-        <label for="email">Email *</label>
-        <input type="email" id="email" name="email" required>
-      </div>
-
-      <div class="form-field">
-        <label for="phoneNumber">Phone Number (Optional)</label>
-        <div style="display: flex; gap: 10px;">
-          <select id="countryCode" name="countryCode" style="width: 120px;">
-            <!-- UNITED parity list (dial codes) -->
-            <option value="+1">🇺🇸 +1 United States</option>
-            <option value="+61">🇦🇺 +61 Australia</option>
-            <option value="+55">🇧🇷 +55 Brazil</option>
-            <option value="+7">🇷🇺 +7 Russia</option>
-            <option value="+20">🇪🇬 +20 Egypt</option>
-            <option value="+27">🇿🇦 +27 South Africa</option>
-            <option value="+30">🇬🇷 +30 Greece</option>
-            <option value="+31">🇳🇱 +31 Netherlands</option>
-            <option value="+32">🇧🇪 +32 Belgium</option>
-            <option value="+33">🇫🇷 +33 France</option>
-            <option value="+34">🇪🇸 +34 Spain</option>
-            <option value="+39">🇮🇹 +39 Italy</option>
-            <option value="+40">🇷🇴 +40 Romania</option>
-            <option value="+41">🇨🇭 +41 Switzerland</option>
-            <option value="+43">🇦🇹 +43 Austria</option>
-            <option value="+44">🇬🇧 +44 United Kingdom</option>
-            <option value="+45">🇩🇰 +45 Denmark</option>
-            <option value="+46">🇸🇪 +46 Sweden</option>
-            <option value="+47">🇳🇴 +47 Norway</option>
-            <option value="+48">🇵🇱 +48 Poland</option>
-            <option value="+49">🇩🇪 +49 Germany</option>
-            <option value="+51">🇵🇪 +51 Peru</option>
-            <option value="+52">🇲🇽 +52 Mexico</option>
-            <option value="+54">🇦🇷 +54 Argentina</option>
-            <option value="+56">🇨🇱 +56 Chile</option>
-            <option value="+57">🇨🇴 +57 Colombia</option>
-            <option value="+58">🇻🇪 +58 Venezuela</option>
-            <option value="+60">🇲🇾 +60 Malaysia</option>
-            <option value="+62">🇮🇩 +62 Indonesia</option>
-            <option value="+63">🇵🇭 +63 Philippines</option>
-            <option value="+64">🇳🇿 +64 New Zealand</option>
-            <option value="+65">🇸🇬 +65 Singapore</option>
-            <option value="+66">🇹🇭 +66 Thailand</option>
-            <option value="+77">🇰🇿 +77 Kazakhstan</option>
-            <option value="+81">🇯🇵 +81 Japan</option>
-            <option value="+82">🇰🇷 +82 South Korea</option>
-            <option value="+84">🇻🇳 +84 Vietnam</option>
-            <option value="+86">🇨🇳 +86 China</option>
-            <option value="+91">🇮🇳 +91 India</option>
-            <option value="+92">🇵🇰 +92 Pakistan</option>
-            <option value="+94">🇱🇰 +94 Sri Lanka</option>
-            <option value="+212">🇲🇦 +212 Morocco</option>
-            <option value="+234">🇳🇬 +234 Nigeria</option>
-            <option value="+254">🇰🇪 +254 Kenya</option>
-            <option value="+256">🇺🇬 +256 Uganda</option>
-            <option value="+263">🇿🇼 +263 Zimbabwe</option>
-            <option value="+591">🇧🇴 +591 Bolivia</option>
-            <option value="+593">🇪🇨 +593 Ecuador</option>
-            <option value="+595">🇵🇾 +595 Paraguay</option>
-            <option value="+597">🇸🇷 +597 Suriname</option>
-            <option value="+598">🇺🇾 +598 Uruguay</option>
-            <option value="+971">🇦🇪 +971 United Arab Emirates</option>
-          </select>
-          <input type="tel" id="phoneNumber" name="phoneNumber"
-            style="flex: 1;">
-        </div>
-      </div>
-
-      <!-- Consent Section (mirrors UNITED) -->
-      <div class="consent-text">
-        <p>
-          Anotherland will use your information to send you updates for the
-          subscriptions you
-          select below. You can unsubscribe at any time.
-        </p>
-        <p>
-          If you provide your cell number, you agree to receive text messages
-          about these updates.
-          Msg & data rates may apply. Message frequency may vary. Reply STOP to
-          opt out, HELP for
-          help. Consent isn't a condition of purchase.
-        </p>
-
-        <div class="checkbox-group">
-          <input type="checkbox" id="agreeArtistUpdates"
-            name="agreeArtistUpdates" value="true" required>
-          <label for="agreeArtistUpdates">
-            I agree to receive updates about ARTIST_NAME.*
-          </label>
-        </div>
-
-        <div class="checkbox-group">
-          <input type="checkbox" id="agreeAnotherlandUpdates"
-            name="agreeAnotherlandUpdates" value="true">
-          <label for="agreeAnotherlandUpdates">
-            I agree to receive updates about Anotherland.
-          </label>
-        </div>
-
-        <p>By submitting, you consent to our Privacy Policy.</p>
-      </div>
-
-      <button type="submit">Submit</button>
-
-      <div id="form-message"></div>
-    </form>
-
-    <!-- IMPORTANT: Replace placeholders with your actual values -->
-    <script type="module">
-      import { initHubSpotForm } from 'https://unpkg.com/@greatnessinabox/hubspot-form@latest/dist/vanilla/index.mjs';
-
-      initHubSpotForm({
-        portalId: '242432623',
-        formGuid: 'YOUR_FORM_GUID', // Replace with your HubSpot Form GUID
-        formId: 'hubspot-contact-form',
-        submissionMethod: 'direct',
-        validation: {
-          requiredFields: ['firstName', 'lastName', 'email']
+  initHubSpotForm({
+    portalId: "242432623",
+    formGuid: "9ac168d7-1e16-4184-8192-39ca71b4e63d",
+    formId: "hubspot-contact-form",
+    submissionMethod: "direct",
+    corner: {
+      launcherText: "Sign up",
+      title: "Join",
+      description: "Sign up to receive updates.",
+      defaultOpen: false,
+    },
+    validation: { requiredFields: ["firstName", "lastName", "email"] },
+    legalConsent: {
+      subscriptions: [
+        {
+          id: "933574474",
+          fieldName: "agreeArtistUpdates",
+          text: "I agree to receive updates about Matt Crocker.",
+          required: true,
         },
-        legalConsent: {
-          subscriptions: [
-            {
-              id: 'YOUR_ARTIST_SUBSCRIPTION_ID', // required checkbox subscription ID
-              fieldName: 'agreeArtistUpdates',
-              text: 'I agree to receive updates about ARTIST_NAME.',
-              required: true
-            },
-            {
-              id: '933574493',
-              fieldName: 'agreeAnotherlandUpdates',
-              text: 'I agree to receive updates about Anotherland.'
-            }
-          ]
+        {
+          id: "933574493",
+          fieldName: "agreeAnotherlandUpdates",
+          text: "I agree to receive updates about Anotherland.",
+          required: false,
         },
-        context: {
-          pageName: 'Contact Form',
-          pageUri: () => window.location.href,
-          includeHutk: true
-        },
-        onSuccess: (data) => {
-          const messageEl = document.getElementById('form-message');
-          messageEl.className = 'success';
-          messageEl.textContent = 'Thank you! Your form has been submitted successfully.';
-          document.getElementById('hubspot-contact-form').reset();
-
-          // Optional: Redirect after 3 seconds
-          // setTimeout(() => {
-          //   window.location.href = '/thank-you';
-          // }, 3000);
-        },
-        onError: (error) => {
-          const messageEl = document.getElementById('form-message');
-          messageEl.className = 'error';
-          messageEl.textContent = 'There was an error submitting your form. Please try again.';
-          console.error('Form error:', error);
-        }
-      });
-    </script>
-
-    <!-- End of Code Block content -->
-  </body>
-
-</html>
+      ],
+    },
+    onSuccess: () => {
+      document.getElementById("hubspot-contact-form").reset();
+      if (REDIRECT_URL) {
+        window.location.href = REDIRECT_URL;
+        return;
+      }
+      const messageEl = document.getElementById("form-message");
+      messageEl.className = "success";
+      messageEl.textContent = "Thank you! Your form has been submitted successfully.";
+    },
+    onError: (error) => {
+      const messageEl = document.getElementById("form-message");
+      messageEl.className = "error";
+      messageEl.textContent = "There was an error submitting your form. Please try again.";
+      console.info("[hubspot-form] submission error", error);
+    },
+  });
+</script>

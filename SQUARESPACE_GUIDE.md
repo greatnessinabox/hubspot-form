@@ -41,10 +41,11 @@ Find and replace these values in the code above:
 
 - `YOUR_FORM_GUID` → Your HubSpot Form GUID
 - `YOUR_ARTIST_SUBSCRIPTION_ID` → The artist subscription ID (required checkbox)
-- `ARTIST_NAME` → The artist name shown in the required checkbox label/text
+- `ARTIST_NAME` → The artist name shown in the required checkbox label/text and the hidden `temp_artist_association` field
 
 Optional:
 
+- `REDIRECT_URL` → Set to a full URL (e.g. `https://artist-site.com/thank-you-video`) to redirect users after submission. Leave as `""` to show the default thank-you message instead.
 - Set `data-hsf-theme="dark"` on the `<form ...>` for a UNITED-like dark theme (default is `light`).
 - Set `data-hsf-layout="corner"` on the `<form ...>` to render the form as a bottom-right popup (default is `inline`).
 

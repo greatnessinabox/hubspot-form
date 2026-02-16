@@ -76,6 +76,8 @@
     <h1>HubSpot Form Example</h1>
 
     <form id="hubspot-form" data-hubspot-form data-hsf-layout="inline">
+      <input type="hidden" name="temp_artist_association" value="ARTIST_NAME">
+
       <div class="form-group">
         <label for="firstName">First Name *</label>
         <input type="text" id="firstName" name="firstName" required>
@@ -176,14 +178,15 @@
     <script type="module">
       import { initHubSpotForm } from '@greatnessinabox/hubspot-form/vanilla';
 
-      // Initialize the form
+      // Optional: set a URL to redirect to after successful submission.
+      // Leave empty ("") to show the default thank-you message instead.
+      const REDIRECT_URL = "";
+
       initHubSpotForm({
-        // Tip: you can also set data-hsf-layout="corner" on the <form> for a bottom-right popup
         portalId: '242432623',
         formGuid: 'YOUR_FORM_GUID', // Replace with your HubSpot Form GUID
         formId: 'hubspot-form',
         submissionMethod: 'direct', // or 'proxy' if using a backend endpoint
-        // proxyEndpoint: '/api/submit-form', // Required if submissionMethod is 'proxy'
         validation: {
           requiredFields: ['firstName', 'lastName', 'email']
         },
@@ -208,14 +211,15 @@
           includeHutk: true
         },
         onSuccess: (data) => {
+          if (REDIRECT_URL) {
+            window.location.href = REDIRECT_URL;
+            return;
+          }
           alert('Form submitted successfully!');
           console.log('Success:', data);
-          // Redirect or show success message
-          // window.location.href = '/thank-you'
         },
         onError: (error) => {
           console.error('Form submission error:', error);
-          // Error messages are automatically displayed in the form
         }
       })
     </script>

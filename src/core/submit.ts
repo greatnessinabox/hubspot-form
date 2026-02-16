@@ -103,6 +103,10 @@ function defaultFieldMapper(formData: Record<string, any>): HubSpotFormField[] {
     fields.push({ name: 'phone', value: phoneValue })
   }
 
+  if (formData.temp_artist_association) {
+    fields.push({ name: 'temp_artist_association', value: formData.temp_artist_association })
+  }
+
   return fields
 }
 

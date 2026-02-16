@@ -9,6 +9,10 @@
 
 import { HubSpotForm, useHubSpotForm } from '@greatnessinabox/hubspot-form/react'
 
+// Optional: set a URL to redirect to after successful submission.
+// Leave empty ("") to show the default success behavior instead.
+const REDIRECT_URL = ""
+
 // Example 1: Using the HubSpotForm component with renderForm prop
 export function ExampleForm1() {
   return (
@@ -40,15 +44,20 @@ export function ExampleForm1() {
         pageUri: () => window.location.href,
       }}
       onSuccess={data => {
+        if (REDIRECT_URL) {
+          window.location.href = REDIRECT_URL
+          return
+        }
         console.log('Form submitted successfully!', data)
-        // Redirect or show success message
       }}
       onError={error => {
         console.error('Form submission failed:', error)
-        // Show error message to user
       }}
+      initialData={{ temp_artist_association: 'ARTIST_NAME' }}
       renderForm={({ formData, setFieldValue, isSubmitting, errors }) => (
         <div className="space-y-4">
+          <input type="hidden" value={formData.temp_artist_association || ''} readOnly />
+
           <div>
             <input
               type="text"
@@ -171,10 +180,12 @@ export function ExampleForm2() {
         console.error('Error:', error)
         // Handle error (show message, etc.)
       },
-    })
+    }, { temp_artist_association: 'ARTIST_NAME' })
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
+      <input type="hidden" value={formData.temp_artist_association || ''} readOnly />
+
       <input
         type="text"
         placeholder="First Name"

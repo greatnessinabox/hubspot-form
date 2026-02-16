@@ -92,6 +92,7 @@ export interface DefaultFormData {
   email?: string
   phoneNumber?: string
   countryCode?: string
+  temp_artist_association?: string
   [key: string]: any // Allow additional fields
 }
 

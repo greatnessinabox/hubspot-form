@@ -84,14 +84,18 @@ function MyForm() {
         ]
       }}
       onSuccess={(data) => {
+        // Optional: redirect to a URL after submission
+        // window.location.href = 'https://example.com/thank-you'
         console.log('Form submitted successfully!', data)
-        // Redirect or show success message
       }}
       onError={(error) => {
         console.error('Form submission failed:', error)
       }}
+      initialData={{ temp_artist_association: 'ARTIST_NAME' }}
       renderForm={({ formData, setFieldValue, isSubmitting, errors }) => (
         <>
+          <input type="hidden" value={formData.temp_artist_association || ''} readOnly />
+
           <input
             type="text"
             placeholder="First Name"
@@ -133,6 +137,7 @@ function MyForm() {
 
 ```html
 <form id="my-form" data-hubspot-form>
+  <input type="hidden" name="temp_artist_association" value="ARTIST_NAME">
   <input type="text" name="firstName" placeholder="First Name" required>
   <input type="text" name="lastName" placeholder="Last Name" required>
   <input type="email" name="email" placeholder="Email" required>
@@ -219,6 +224,7 @@ const formData = {
   firstName: 'John',
   lastName: 'Doe',
   email: 'john@example.com',
+  temp_artist_association: 'ARTIST_NAME',
   agreeArtistUpdates: true
 }
 
