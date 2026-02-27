@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState, useCallback, type FormEvent } from 'react'
+import React, { useState, useCallback, useRef, type FormEvent } from 'react'
 import { submitToHubSpot, validateFormData, type HubSpotFormConfig, type DefaultFormData } from '../index'
 
 export interface HubSpotFormProps extends HubSpotFormConfig {
@@ -27,28 +27,38 @@ export function useHubSpotForm(config: HubSpotFormConfig, initialData?: Partial<
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [errors, setErrors] = useState<Record<string, string>>({})
 
+  // Use refs so handleSubmit always sees the latest values
+  // without needing formData/config in the dependency array
+  const formDataRef = useRef(formData)
+  formDataRef.current = formData
+  const configRef = useRef(config)
+  configRef.current = config
+
   const setFieldValue = useCallback((field: string, value: any) => {
     setFormData(prev => ({ ...prev, [field]: value }))
-    // Clear error for this field when user starts typing
-    if (errors[field]) {
-      setErrors(prev => {
-        const newErrors = { ...prev }
-        delete newErrors[field]
-        return newErrors
-      })
-    }
-  }, [errors])
+    // Clear errors when user interacts
+    setErrors(prev => {
+      if (!prev[field] && !prev._general) return prev
+      const newErrors = { ...prev }
+      delete newErrors[field]
+      delete newErrors._general
+      return newErrors
+    })
+  }, [])
 
   const handleSubmit = useCallback(async (e?: FormEvent) => {
     if (e) {
       e.preventDefault()
     }
 
+    const currentData = formDataRef.current
+    const currentConfig = configRef.current
+
     // Clear previous errors
     setErrors({})
 
     // Validate form data
-    const validationError = validateFormData(formData, config)
+    const validationError = validateFormData(currentData, currentConfig)
     if (validationError) {
       setErrors({ _general: validationError })
       return
@@ -57,7 +67,7 @@ export function useHubSpotForm(config: HubSpotFormConfig, initialData?: Partial<
     setIsSubmitting(true)
 
     try {
-      const result = await submitToHubSpot(formData, config)
+      const result = await submitToHubSpot(currentData, currentConfig)
 
       if (!result.success) {
         const errorMessage = result.error instanceof Error
@@ -74,7 +84,7 @@ export function useHubSpotForm(config: HubSpotFormConfig, initialData?: Partial<
     } finally {
       setIsSubmitting(false)
     }
-  }, [formData, config])
+  }, [])
 
   return {
     formData,
@@ -125,6 +135,3 @@ export function HubSpotForm({
 }
 
 export default HubSpotForm
-
-
-
