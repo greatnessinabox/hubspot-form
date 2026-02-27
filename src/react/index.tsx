@@ -8,6 +8,8 @@ export interface HubSpotFormProps extends HubSpotFormConfig {
   className?: string
   renderForm?: (props: FormRenderProps) => React.ReactNode
   initialData?: Partial<DefaultFormData>
+  /** Dry run — skips actual HubSpot API call, simulates success */
+  dryRun?: boolean
 }
 
 export interface FormRenderProps {
@@ -22,13 +24,12 @@ export interface FormRenderProps {
 /**
  * React Hook for HubSpot Form
  */
-export function useHubSpotForm(config: HubSpotFormConfig, initialData?: Partial<DefaultFormData>) {
+export function useHubSpotForm(config: HubSpotFormConfig & { dryRun?: boolean }, initialData?: Partial<DefaultFormData>) {
   const [formData, setFormData] = useState<Record<string, any>>(initialData || {})
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [errors, setErrors] = useState<Record<string, string>>({})
 
   // Use refs so handleSubmit always sees the latest values
-  // without needing formData/config in the dependency array
   const formDataRef = useRef(formData)
   formDataRef.current = formData
   const configRef = useRef(config)
@@ -36,7 +37,6 @@ export function useHubSpotForm(config: HubSpotFormConfig, initialData?: Partial<
 
   const setFieldValue = useCallback((field: string, value: any) => {
     setFormData(prev => ({ ...prev, [field]: value }))
-    // Clear errors when user interacts
     setErrors(prev => {
       if (!prev[field] && !prev._general) return prev
       const newErrors = { ...prev }
@@ -67,6 +67,20 @@ export function useHubSpotForm(config: HubSpotFormConfig, initialData?: Partial<
     setIsSubmitting(true)
 
     try {
+      // Dry run — skip actual API call
+      if (currentConfig.dryRun) {
+        // Still run onBeforeSubmit so we can see the transform
+        if (currentConfig.onBeforeSubmit) {
+          await currentConfig.onBeforeSubmit(currentData)
+        }
+
+        if (currentConfig.onSuccess) {
+          await currentConfig.onSuccess({ dryRun: true })
+        }
+
+        return { success: true, data: { dryRun: true } }
+      }
+
       const result = await submitToHubSpot(currentData, currentConfig)
 
       if (!result.success) {
@@ -104,9 +118,10 @@ export function HubSpotForm({
   className,
   renderForm,
   initialData,
+  dryRun,
   ...config
 }: HubSpotFormProps) {
-  const form = useHubSpotForm(config, initialData)
+  const form = useHubSpotForm({ ...config, dryRun }, initialData)
 
   const handleFormSubmit = async (e: FormEvent) => {
     await form.handleSubmit(e)

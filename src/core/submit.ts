@@ -167,7 +167,7 @@ export async function submitToHubSpot(
         headers: {
           'Content-Type': 'application/json',
         },
-        credentials: 'include', // Include cookies (hutk)
+        credentials: 'include',
         body: JSON.stringify(transformedData),
       })
     } else {
@@ -213,7 +213,7 @@ export async function submitToHubSpot(
     }
 
     if (config.onSuccess) {
-      config.onSuccess(responseData)
+      await config.onSuccess(responseData)
     }
 
     return result
@@ -266,6 +266,3 @@ export function validateFormData(
 
   return null
 }
-
-
-

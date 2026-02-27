@@ -69,7 +69,7 @@ export interface HubSpotFormConfig {
   }
 
   // Callbacks
-  onSuccess?: (response: any) => void
+  onSuccess?: (response: any) => void | Promise<void>
   onError?: (error: Error | any) => void
   onBeforeSubmit?: (formData: Record<string, any>) => Record<string, any> | Promise<Record<string, any>>
 }
